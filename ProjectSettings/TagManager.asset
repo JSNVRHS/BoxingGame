@@ -2,17 +2,17 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ring
   - Water
   - UI
-  - 
-  - 
+  - Torso
+  - Legs
   - 
   - 
   - 
@@ -41,3 +41,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ring
+    uniqueID: 692812753
+    locked: 0
+  - name: Legs
+    uniqueID: 1012650561
+    locked: 0
+  - name: Torso
+    uniqueID: 4077998469
+    locked: 0
+  m_RenderingLayers:
+  - Default
