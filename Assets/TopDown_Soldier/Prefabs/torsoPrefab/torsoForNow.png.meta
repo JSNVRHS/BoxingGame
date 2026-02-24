@@ -1,34 +1,28 @@
 fileFormatVersion: 2
-guid: 659d876d4c49b1a46acbdfa150a21d1e
+guid: 2bae219e6f9b0e5468bb10249f5ab1af
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2876730069405778681
-    second: row-3-column-1_0
+      213: -8885154984976800662
+    second: torsoForNow_0
   - first:
-      213: 5365910240482399651
-    second: row-3-column-1_1
+      213: -7112391653505727260
+    second: torsoForNow_1
   - first:
-      213: 2103172146605326030
-    second: row-3-column-1_2
+      213: 2905364566189923404
+    second: torsoForNow_2
   - first:
-      213: 2679345675787467187
-    second: row-3-column-1_3
+      213: -6802085185273840530
+    second: torsoForNow_3
   - first:
-      213: 4050546744760950534
-    second: row-3-column-1_4
+      213: -3229634166475389631
+    second: torsoForNow_4
   - first:
-      213: -8470913407142257657
-    second: row-3-column-1_5
+      213: -7207638689724789274
+    second: torsoForNow_5
   - first:
-      213: -994953142260973124
-    second: row-3-column-1_6
-  - first:
-      213: 2040514966367736533
-    second: row-3-column-1_7
-  - first:
-      213: 653044286080697870
-    second: row-3-column-1_8
+      213: 2529404190152303186
+    second: torsoForNow_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -124,13 +118,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: row-3-column-1_0
+      name: torsoForNow_0
       rect:
         serializedVersion: 2
-        x: 243
-        y: 9
-        width: 214
-        height: 563
+        x: 126
+        y: 121
+        width: 422
+        height: 289
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,20 +133,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 70d32625e3dc318d0800000000000000
-      internalID: -2876730069405778681
+      spriteID: a64aa22ed9691b480800000000000000
+      internalID: -8885154984976800662
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: row-3-column-1_1
+      name: torsoForNow_1
       rect:
         serializedVersion: 2
-        x: 180
-        y: 274
-        width: 249
-        height: 292
+        x: 185
+        y: 464
+        width: 6
+        height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,20 +155,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3a595941fea877a40800000000000000
-      internalID: 5365910240482399651
+      spriteID: 4e486556975bb4d90800000000000000
+      internalID: -7112391653505727260
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: row-3-column-1_2
+      name: torsoForNow_2
       rect:
         serializedVersion: 2
-        x: 430
-        y: 458
-        width: 54
-        height: 81
+        x: 489
+        y: 455
+        width: 6
+        height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,20 +177,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ecef7eb9ce7ff2d10800000000000000
-      internalID: 2103172146605326030
+      spriteID: c4cd1cefdade15820800000000000000
+      internalID: 2905364566189923404
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: row-3-column-1_3
+      name: torsoForNow_3
       rect:
         serializedVersion: 2
-        x: 488
-        y: 524
-        width: 48
-        height: 31
+        x: 114
+        y: 120
+        width: 440
+        height: 305
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,20 +199,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3b97ac342b2fe2520800000000000000
-      internalID: 2679345675787467187
+      spriteID: e6c3ecf10932a91a0800000000000000
+      internalID: -6802085185273840530
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: row-3-column-1_4
+      name: torsoForNow_4
       rect:
         serializedVersion: 2
-        x: 474
-        y: 419
-        width: 22
-        height: 40
+        x: 322
+        y: 117
+        width: 6
+        height: 7
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -227,20 +221,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 60f579bbdce663830800000000000000
-      internalID: 4050546744760950534
+      spriteID: 14505c046d80e23d0800000000000000
+      internalID: -3229634166475389631
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: row-3-column-1_5
+      name: torsoForNow_5
       rect:
         serializedVersion: 2
-        x: 527
-        y: 408
-        width: 42
-        height: 51
+        x: 417
+        y: 87
+        width: 7
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -249,20 +243,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 70c11341325417a80800000000000000
-      internalID: -8470913407142257657
+      spriteID: 6ed8795acc259fb90800000000000000
+      internalID: -7207638689724789274
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: row-3-column-1_6
+      name: torsoForNow_6
       rect:
         serializedVersion: 2
-        x: 98
-        y: 335
-        width: 19
-        height: 39
+        x: 294
+        y: 45
+        width: 7
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,52 +265,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cb1406b73673132f0800000000000000
-      internalID: -994953142260973124
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: row-3-column-1_7
-      rect:
-        serializedVersion: 2
-        x: 123
-        y: 365
-        width: 46
-        height: 45
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5d297310d8d515c10800000000000000
-      internalID: 2040514966367736533
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: row-3-column-1_8
-      rect:
-        serializedVersion: 2
-        x: 145
-        y: 4
-        width: 446
-        height: 404
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e0640767154101900800000000000000
-      internalID: 653044286080697870
+      spriteID: 252a967a5bf3a1320800000000000000
+      internalID: 2529404190152303186
       vertices: []
       indices: 
       edges: []
@@ -325,7 +275,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: fa7ae15a23943034a94c643f23b44693
+    spriteID: 577475273feb67c4a8fafdf274c9dc99
     internalID: 0
     vertices: []
     indices: 
@@ -335,15 +285,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      row-3-column-1_0: -2876730069405778681
-      row-3-column-1_1: 5365910240482399651
-      row-3-column-1_2: 2103172146605326030
-      row-3-column-1_3: 2679345675787467187
-      row-3-column-1_4: 4050546744760950534
-      row-3-column-1_5: -8470913407142257657
-      row-3-column-1_6: -994953142260973124
-      row-3-column-1_7: 2040514966367736533
-      row-3-column-1_8: 653044286080697870
+      torsoForNow_0: -8885154984976800662
+      torsoForNow_1: -7112391653505727260
+      torsoForNow_2: 2905364566189923404
+      torsoForNow_3: -6802085185273840530
+      torsoForNow_4: -3229634166475389631
+      torsoForNow_5: -7207638689724789274
+      torsoForNow_6: 2529404190152303186
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

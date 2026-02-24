@@ -11,8 +11,8 @@ TagManager:
   - Ring
   - Water
   - UI
-  - Boxer
-  - 
+  - Torso
+  - Legs
   - 
   - 
   - 
@@ -44,7 +44,10 @@ TagManager:
   - name: Ring
     uniqueID: 692812753
     locked: 0
-  - name: Boxer
+  - name: Legs
+    uniqueID: 1012650561
+    locked: 0
+  - name: Torso
     uniqueID: 4077998469
     locked: 0
   m_RenderingLayers:
