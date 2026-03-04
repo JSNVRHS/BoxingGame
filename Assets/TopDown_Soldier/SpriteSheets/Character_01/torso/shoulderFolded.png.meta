@@ -159,7 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      shoulderFolded_0: 2060486088523017666
+      shoulderFolded_1: -2833300888611561768
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
