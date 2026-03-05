@@ -8,6 +8,9 @@ public class Torso : MonoBehaviour
     public Animator anim;
     public GameObject legs;
 
+    public GameObject rightShoulder;
+    public GameObject leftShoulder;
+
     public Camera cam;
 
     public bool duck = false;
@@ -49,7 +52,7 @@ public class Torso : MonoBehaviour
         float angleRad = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x);
         float angleDeg = (180/Mathf.PI)*angleRad - 90;
 
-        torso.transform.rotation = Quaternion.Euler(0f, 0f, angleDeg);
+        torso.transform.rotation = Quaternion.Euler(0f, 0f, angleDeg+130);
     }
 
 

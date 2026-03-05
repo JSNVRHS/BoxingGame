@@ -13,9 +13,9 @@ TagManager:
   - UI
   - Torso
   - Legs
-  - 
-  - 
-  - 
+  - Head
+  - rHand
+  - lHand
   - 
   - 
   - 
@@ -49,6 +49,12 @@ TagManager:
     locked: 0
   - name: Torso
     uniqueID: 4077998469
+    locked: 0
+  - name: Hands
+    uniqueID: 2267154805
+    locked: 0
+  - name: Head
+    uniqueID: 3714463489
     locked: 0
   m_RenderingLayers:
   - Default
