@@ -3,83 +3,57 @@ using System.Collections;
 
 public class RightHand : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    Rigidbody2D hand;
     Animator anim;
-
-    public GameObject torso;
-    public GameObject rightShoulder;
-    public Camera cam;
-    
-
+    Camera cam;
     bool punching = false;
+    public static bool isPunching = false;
+    Quaternion punchLockedRotation;
 
-
+    [SerializeField] float guardLocalAngle = -120f;
 
     void Start()
     {
-        hand = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         cam = Camera.main;
     }
 
-
-    
-
-
-    // Update is called once per frame
     void Update()
     {
+        if (!punching && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0f;
 
-        Punch();
-        StickToShoulder();
-        rotateAtMouse();
+            float angleRad = Mathf.Atan2(
+                mousePos.y - transform.position.y,
+                mousePos.x - transform.position.x
+            );
+            float angleDeg = (180f / Mathf.PI) * angleRad - 90f;
 
-    }
-
-    public void Punch() {
-        if (punching == false && Input.GetKeyDown(KeyCode.Mouse1)) {
-
-            StartCoroutine(punchCooldown());
+            punchLockedRotation = Quaternion.Euler(0f, 0f, angleDeg);
+            anim.SetTrigger("punch");
+            StartCoroutine(PunchCooldown());
         }
-        anim.SetBool("punching", punching);
-
     }
 
-    public void rotateAtMouse()
+    void LateUpdate()
     {
-        Vector3 mousePos = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
-        float angleRad = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x);
-        float angleDeg = (180 / Mathf.PI) * angleRad - 90;
-
-        hand.transform.rotation = Quaternion.Euler(0f, 0f, angleDeg);
+        if (punching)
+        {
+            transform.rotation = punchLockedRotation;
+        }
+        else
+        {
+            transform.localRotation = Quaternion.Euler(0f, 0f, guardLocalAngle);
+        }
     }
 
-
-
-    public IEnumerator punchCooldown()
+    IEnumerator PunchCooldown()
     {
+        isPunching = true;
         punching = true;
         yield return new WaitForSeconds(1f);
+        isPunching = false;
         punching = false;
     }
-
-    
-    public void StickToShoulder()
-    {
-        hand.transform.position = rightShoulder.transform.position;
-       // hand.transform.rotation = torso.transform.rotation;
-       
-    
-    }
-
-    
-
-
-
-
-
-
-
-
 }
