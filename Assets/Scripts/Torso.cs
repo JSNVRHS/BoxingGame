@@ -12,8 +12,10 @@ public class Torso : MonoBehaviour
 
     float lockedTorsoAngle = 0f;
 
-    [SerializeField] float punchRotateLeft = 100f;
-    [SerializeField] float punchRotateRight = 30f;
+    [SerializeField] float rightPunchRotateLeft = 100f;
+    [SerializeField] float rightPunchRotateRight = 30f;
+    [SerializeField] float leftPunchRotateLeft = 30f;
+    [SerializeField] float leftPunchRotateRight = 30f;
 
     void Start()
     {
@@ -40,10 +42,13 @@ public class Torso : MonoBehaviour
         float angleRad = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x);
         float angleDeg = (180f / Mathf.PI) * angleRad - 90f + 130f;
 
-        if (RightHand.isPunching)
+        if (RightHand.isPunching || LeftHand.isPunching)
         {
+            float rotateLeft = RightHand.isPunching ? rightPunchRotateLeft : leftPunchRotateLeft;
+            float rotateRight = RightHand.isPunching ? rightPunchRotateRight : leftPunchRotateRight;
+
             float delta = Mathf.DeltaAngle(lockedTorsoAngle, angleDeg);
-            delta = Mathf.Clamp(delta, -punchRotateRight, punchRotateLeft);
+            delta = Mathf.Clamp(delta, -rotateRight, rotateLeft);
             torso.transform.rotation = Quaternion.Euler(0f, 0f, lockedTorsoAngle + delta);
         }
         else
