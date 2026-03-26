@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 1fe84559ad1afee4fb272c56c807989b
+guid: 58751b6ebfc3cb84c96fcb67af2405c0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6490238312082543826
-    second: justTorso_0
+      213: 8405387796515942215
+    second: shoulder_0
+  - first:
+      213: 8747232903666005825
+    second: shoulder_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +103,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: justTorso_0
+      name: shoulder_0
       rect:
         serializedVersion: 2
-        x: 219
-        y: 134
-        width: 243
-        height: 155
+        x: 0
+        y: 0
+        width: 335
+        height: 279
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e2b60b454aa0ee5a0800000000000000
-      internalID: -6490238312082543826
+      spriteID: 74f6cb2daafe5a470800000000000000
+      internalID: 8405387796515942215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shoulder_1
+      rect:
+        serializedVersion: 2
+        x: 1402
+        y: 263
+        width: 6
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 147fe962bf9646970800000000000000
+      internalID: 8747232903666005825
       vertices: []
       indices: 
       edges: []
@@ -125,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2d5aa8dc843b87b458a3fe8ed885d240
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -134,8 +159,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      justTorso_0: -6490238312082543826
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
