@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: 21dec1115bea9a148aabf31f6b41e81b
+guid: d2b4f37f860a6d74990afb7912320b7a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6262526027171949080
-    second: leftHand3_0
+      213: 8358695281628077809
+    second: NPChead_0
   - first:
-      213: 5640826527392446221
-    second: leftHand3_1
+      213: -4734203262459194027
+    second: NPChead_1
+  - first:
+      213: 2950986903448078449
+    second: NPChead_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,45 +106,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: leftHand3_0
+      name: NPChead_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 12
-        width: 169
-        height: 181
+        x: 0
+        y: 321
+        width: 6
+        height: 6
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8e517c132c90719a0800000000000000
-      internalID: -6262526027171949080
+      spriteID: 1fedc27821d000470800000000000000
+      internalID: 8358695281628077809
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: leftHand3_1
+      name: NPChead_1
       rect:
         serializedVersion: 2
-        x: 196
-        y: 155
-        width: 10
-        height: 48
+        x: 260
+        y: 310
+        width: 14
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d07b3dc17dd384e40800000000000000
-      internalID: 5640826527392446221
+      spriteID: 555df96373bbc4eb0800000000000000
+      internalID: -4734203262459194027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPChead_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 274
+        height: 312
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1784ad424f204f820800000000000000
+      internalID: 2950986903448078449
       vertices: []
       indices: 
       edges: []
@@ -150,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: df42533a633f88f4596b9d536f69a278
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -159,9 +184,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      leftHand3_0: -6262526027171949080
-      leftHand3_1: 5640826527392446221
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

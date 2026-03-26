@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 21dec1115bea9a148aabf31f6b41e81b
+guid: 267e1c00f31348c46899de2e6b2ae065
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6262526027171949080
-    second: leftHand3_0
-  - first:
-      213: 5640826527392446221
-    second: leftHand3_1
+      213: 606496466924204518
+    second: illegalArenaNormal_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,45 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: leftHand3_0
+      name: illegalArenaNormal_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 12
-        width: 169
-        height: 181
+        x: 337
+        y: 346
+        width: 8
+        height: 6
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8e517c132c90719a0800000000000000
-      internalID: -6262526027171949080
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: leftHand3_1
-      rect:
-        serializedVersion: 2
-        x: 196
-        y: 155
-        width: 10
-        height: 48
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d07b3dc17dd384e40800000000000000
-      internalID: 5640826527392446221
+      spriteID: 6e1fb84c255ba6800800000000000000
+      internalID: 606496466924204518
       vertices: []
       indices: 
       edges: []
@@ -150,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: df42533a633f88f4596b9d536f69a278
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -159,9 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      leftHand3_0: -6262526027171949080
-      leftHand3_1: 5640826527392446221
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
