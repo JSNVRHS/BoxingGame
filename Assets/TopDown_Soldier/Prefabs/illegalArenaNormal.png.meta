@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      illegalArenaNormal_0: 606496466924204518
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
