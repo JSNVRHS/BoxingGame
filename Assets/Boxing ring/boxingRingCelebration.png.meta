@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: d2b4f37f860a6d74990afb7912320b7a
+guid: 9a4174ce688d4044f9da4029f352dcaf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8358695281628077809
-    second: NPChead_0
-  - first:
-      213: -4734203262459194027
-    second: NPChead_1
-  - first:
-      213: 2950986903448078449
-    second: NPChead_2
+      213: -2484823066006046375
+    second: boxingRingCelebration_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: NPChead_0
+      name: boxingRingCelebration_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 321
-        width: 6
-        height: 6
+        x: 360
+        y: 274
+        width: 7
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,52 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1fedc27821d000470800000000000000
-      internalID: 8358695281628077809
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NPChead_1
-      rect:
-        serializedVersion: 2
-        x: 260
-        y: 310
-        width: 14
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 555df96373bbc4eb0800000000000000
-      internalID: -4734203262459194027
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NPChead_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 274
-        height: 312
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1784ad424f204f820800000000000000
-      internalID: 2950986903448078449
+      spriteID: 959330d2692248dd0800000000000000
+      internalID: -2484823066006046375
       vertices: []
       indices: 
       edges: []

@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: d2b4f37f860a6d74990afb7912320b7a
+guid: 1318c728379998b45957960f8db05cbd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8358695281628077809
-    second: NPChead_0
+      213: 2213384018240292572
+    second: knockedDown_0
   - first:
-      213: -4734203262459194027
-    second: NPChead_1
+      213: -4855755010279748005
+    second: knockedDown_1
   - first:
-      213: 2950986903448078449
-    second: NPChead_2
+      213: -4531652539253935937
+    second: knockedDown_2
+  - first:
+      213: 4694221844337943725
+    second: knockedDown_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,57 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: NPChead_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 321
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1fedc27821d000470800000000000000
-      internalID: 8358695281628077809
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NPChead_1
-      rect:
-        serializedVersion: 2
-        x: 260
-        y: 310
-        width: 14
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 555df96373bbc4eb0800000000000000
-      internalID: -4734203262459194027
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NPChead_2
+      name: knockedDown_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 274
-        height: 312
+        width: 946
+        height: 1015
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,8 +124,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1784ad424f204f820800000000000000
-      internalID: 2950986903448078449
+      spriteID: cd64dbe990587be10800000000000000
+      internalID: 2213384018240292572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knockedDown_1
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 936
+        width: 8
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5ec3f78b84ec9cb0800000000000000
+      internalID: -4855755010279748005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knockedDown_2
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 658
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb0b54876065c11c0800000000000000
+      internalID: -4531652539253935937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knockedDown_3
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 637
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da464a875e9352140800000000000000
+      internalID: 4694221844337943725
       vertices: []
       indices: 
       edges: []
