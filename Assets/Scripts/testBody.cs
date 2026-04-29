@@ -61,10 +61,34 @@ public class testBody : MonoBehaviour
                 return;
             }
 
+            BrawlerRightHand brawlerRightHand = hit.GetComponent<BrawlerRightHand>();
+            if (brawlerRightHand != null && brawlerRightHand.IsPunching)
+            {
+                if (!CanTakeBodyHit() || !brawlerRightHand.IsBodyPunch)
+                {
+                    continue;
+                }
+
+                RegisterHit();
+                return;
+            }
+
             LeftHand leftHand = hit.GetComponent<LeftHand>();
             if (leftHand != null && leftHand.IsPunching)
             {
                 if (!CanTakeBodyHit() || !leftHand.IsBodyPunch)
+                {
+                    continue;
+                }
+
+                RegisterHit();
+                return;
+            }
+
+            BrawlerLeftHand brawlerLeftHand = hit.GetComponent<BrawlerLeftHand>();
+            if (brawlerLeftHand != null && brawlerLeftHand.IsPunching)
+            {
+                if (!CanTakeBodyHit() || !brawlerLeftHand.IsBodyPunch)
                 {
                     continue;
                 }

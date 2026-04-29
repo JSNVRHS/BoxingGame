@@ -5,6 +5,8 @@ public class Torso : MonoBehaviour
     public Rigidbody2D torso;
     public Animator anim;
     [SerializeField] Transform torsoSprite;
+    [SerializeField] GameObject outfighterStance;
+    [SerializeField] GameObject brawlerStance;
     public GameObject legs;
     public GameObject rightShoulder;
     public GameObject leftShoulder;
@@ -12,6 +14,8 @@ public class Torso : MonoBehaviour
     public bool duck = false;
     public LeftHand leftHand;
     public RightHand rightHand;
+    public BrawlerLeftHand brawlerLeftHand;
+    public BrawlerRightHand brawlerRightHand;
     [SerializeField] bool allowPlayerInput = true;
 
     float lockedTorsoAngle = 0f;
@@ -20,12 +24,14 @@ public class Torso : MonoBehaviour
     [SerializeField] float rightPunchRotateRight = 30f;
     [SerializeField] float leftPunchRotateLeft = 30f;
     [SerializeField] float leftPunchRotateRight = 30f;
+    bool lastAppliedDuck;
 
     void Start()
     {
         torso = GetComponent<Rigidbody2D>();
         cam = Camera.main;
-        AutoAssignBodyParts();
+        CacheStanceRoots();
+        ApplyStanceState(forceRefresh: true);
     }
 
     void Update()
@@ -51,8 +57,8 @@ public class Torso : MonoBehaviour
         float angleRad = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x);
         float angleDeg = (180f / Mathf.PI) * angleRad - 90f + 130f;
 
-        bool rightPunching = rightHand != null && rightHand.IsPunching;
-        bool leftPunching = leftHand != null && leftHand.IsPunching;
+        bool rightPunching = IsRightPunching();
+        bool leftPunching = IsLeftPunching();
 
         if (rightPunching || leftPunching)
         {
@@ -72,75 +78,145 @@ public class Torso : MonoBehaviour
 
     public void Duck()
     {
-        if (anim == null)
+        duck = false;
+
+        if (brawlerStance != null && brawlerStance.activeSelf)
         {
-            return;
+            brawlerStance.SetActive(false);
+        }
+
+        if (outfighterStance != null && !outfighterStance.activeSelf)
+        {
+            outfighterStance.SetActive(true);
         }
 
         if (!allowPlayerInput)
         {
-            anim.SetBool("duck", duck);
+            ApplyStanceState();
             return;
         }
 
         if (IsPunchingActive())
         {
-            anim.SetBool("duck", duck);
+            ApplyStanceState();
             return;
         }
 
-        if (Input.GetKey(KeyCode.Space))
-        {
-            duck = true;
-        }
-        else
-        {
-            duck = false;
-        }
-
-        anim.SetBool("duck", duck);
+        ApplyStanceState();
     }
 
     public bool IsPunchingActive()
     {
-        return (leftHand != null && leftHand.IsPunching) ||
-               (rightHand != null && rightHand.IsPunching);
+        return IsLeftPunching() || IsRightPunching();
     }
 
     public bool AllowPlayerInput => allowPlayerInput;
 
-    void AutoAssignBodyParts()
+    void CacheStanceRoots()
     {
-        if (torsoSprite == null)
+        if (outfighterStance == null)
         {
-            torsoSprite = FindNamedChild("torsoSprite");
+            Transform outfighterTransform = FindNamedChild("outfighterStance");
+            if (outfighterTransform != null)
+            {
+                outfighterStance = outfighterTransform.gameObject;
+            }
         }
 
+        if (brawlerStance == null)
+        {
+            Transform brawlerTransform = FindNamedChild("brawlerStance");
+            if (brawlerTransform != null)
+            {
+                brawlerStance = brawlerTransform.gameObject;
+            }
+        }
+    }
+
+    void ApplyStanceState(bool forceRefresh = false)
+    {
+        if (!forceRefresh && lastAppliedDuck == duck)
+        {
+            if (anim != null)
+            {
+                anim.SetBool("duck", duck);
+            }
+            return;
+        }
+
+        if (outfighterStance != null)
+        {
+            outfighterStance.SetActive(!duck);
+        }
+
+        if (brawlerStance != null)
+        {
+            brawlerStance.SetActive(duck);
+        }
+
+        RefreshActiveRigReferences();
+
+        if (anim != null)
+        {
+            anim.SetBool("duck", duck);
+        }
+
+        lastAppliedDuck = duck;
+    }
+
+    void RefreshActiveRigReferences()
+    {
+        GameObject activeStance = duck ? brawlerStance : outfighterStance;
+        Transform activeRoot = activeStance != null ? activeStance.transform : null;
+
+        torsoSprite = null;
+        anim = null;
+        leftShoulder = null;
+        rightShoulder = null;
+        leftHand = null;
+        rightHand = null;
+        brawlerLeftHand = null;
+        brawlerRightHand = null;
+
+        if (activeRoot == null)
+        {
+            return;
+        }
+
+        torsoSprite = FindNamedChild(activeRoot, "torsoSprite");
         if (torsoSprite != null)
         {
             anim = torsoSprite.GetComponent<Animator>();
         }
 
-        if (leftShoulder == null)
+        Transform leftShoulderTransform = FindNamedChild(activeRoot, "leftShoulder");
+        if (leftShoulderTransform != null)
         {
-            Transform leftShoulderTransform = FindNamedChild("leftShoulder");
-            if (leftShoulderTransform != null)
-            {
-                leftShoulder = leftShoulderTransform.gameObject;
-            }
+            leftShoulder = leftShoulderTransform.gameObject;
         }
 
-        if (rightShoulder == null)
+        Transform rightShoulderTransform = FindNamedChild(activeRoot, "rightShoulder");
+        if (rightShoulderTransform != null)
         {
-            Transform rightShoulderTransform = FindNamedChild("rightShoulder");
-            if (rightShoulderTransform != null)
-            {
-                rightShoulder = rightShoulderTransform.gameObject;
-            }
+            rightShoulder = rightShoulderTransform.gameObject;
         }
 
-        leftHand = FindPreferredComponent<LeftHand>();
-        rightHand = FindPreferredComponent<RightHand>();
+        leftHand = activeRoot.GetComponentInChildren<LeftHand>(true);
+        rightHand = activeRoot.GetComponentInChildren<RightHand>(true);
+        brawlerLeftHand = activeRoot.GetComponentInChildren<BrawlerLeftHand>(true);
+        brawlerRightHand = activeRoot.GetComponentInChildren<BrawlerRightHand>(true);
+    }
+
+    bool IsLeftPunching()
+    {
+        return (leftHand != null && leftHand.IsPunching) ||
+               (brawlerLeftHand != null && brawlerLeftHand.IsPunching);
+    }
+
+    bool IsRightPunching()
+    {
+        return (rightHand != null && rightHand.IsPunching) ||
+               (brawlerRightHand != null && brawlerRightHand.IsPunching);
     }
 
     Transform FindNamedChild(string childName)
@@ -169,26 +245,31 @@ public class Torso : MonoBehaviour
         return fallback;
     }
 
-    T FindPreferredComponent<T>() where T : Component
+    Transform FindNamedChild(Transform root, string childName)
     {
-        T[] components = GetComponentsInChildren<T>(true);
-        T fallback = null;
-
-        foreach (T component in components)
+        if (root == null)
         {
-            if (component == null)
+            return null;
+        }
+
+        Transform[] descendants = root.GetComponentsInChildren<Transform>(true);
+        Transform fallback = null;
+
+        foreach (Transform descendant in descendants)
+        {
+            if (descendant == root || descendant.name != childName)
             {
                 continue;
             }
 
             if (fallback == null)
             {
-                fallback = component;
+                fallback = descendant;
             }
 
-            if (component.gameObject.activeInHierarchy)
+            if (descendant.gameObject.activeInHierarchy)
             {
-                return component;
+                return descendant;
             }
         }
 

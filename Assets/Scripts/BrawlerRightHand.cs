@@ -1,25 +1,20 @@
 using UnityEngine;
 using System.Collections;
 
-public class LeftHand : MonoBehaviour
+public class BrawlerRightHand : MonoBehaviour
 {
     Animator anim;
-    Camera cam;
-    bool punching = false;
-    public static bool isPunching = false;
     Torso ownerTorso;
-
-    [SerializeField] float guardLocalAngle = 1f;
+    bool punching = false;
 
     public bool IsPunching => punching;
-    public bool IsBodyPunch => false;
-    public bool IsHeadPunch => punching;
+    public bool IsBodyPunch => punching;
+    public bool IsHeadPunch => false;
     public Torso OwnerTorso => ownerTorso;
 
     void Start()
     {
         anim = GetComponent<Animator>();
-        cam = Camera.main;
         ownerTorso = GetComponentInParent<Torso>();
     }
 
@@ -30,27 +25,17 @@ public class LeftHand : MonoBehaviour
             return;
         }
 
-        if (!punching && Input.GetKeyDown(KeyCode.Mouse1))
+        if (!punching && Input.GetKeyDown(KeyCode.Mouse0))
         {
             anim.SetTrigger("punch");
             StartCoroutine(PunchCooldown());
         }
     }
 
-    void LateUpdate()
-    {
-        if (!punching)
-        {
-            transform.localRotation = Quaternion.Euler(0f, 0f, guardLocalAngle);
-        }
-    }
-
     IEnumerator PunchCooldown()
     {
-        isPunching = true;
         punching = true;
-        yield return new WaitForSeconds(0.80f);
-        isPunching = false;
+        yield return new WaitForSeconds(1f);
         punching = false;
     }
 }
