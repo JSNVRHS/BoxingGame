@@ -5,6 +5,7 @@ public class testHead : MonoBehaviour
     public Rigidbody2D head;
     public GameObject torso;
     public Camera cam;
+    Torso ownerTorso;
 
     [Header("Mode")]
     [SerializeField] bool aimAtMouse = false;
@@ -38,6 +39,7 @@ public class testHead : MonoBehaviour
     void Start()
     {
         head = GetComponent<Rigidbody2D>();
+        ownerTorso = torso != null ? torso.GetComponent<Torso>() : null;
 
         if (aimAtMouse)
         {
@@ -56,7 +58,7 @@ public class testHead : MonoBehaviour
             Time.deltaTime * returnSpeed
         );
 
-        if (aimAtMouse)
+        if (aimAtMouse && ownerTorso != null && ownerTorso.AllowPlayerInput)
         {
             RotateAtMouse();
         }
@@ -89,7 +91,7 @@ public class testHead : MonoBehaviour
         );
         float baseAngle = Mathf.Rad2Deg * angleRad - 90f + aimAngleOffset;
 
-        if (RightHand.isPunching || LeftHand.isPunching)
+        if (ownerTorso != null && ownerTorso.IsPunchingActive())
         {
             head.transform.rotation = Quaternion.Euler(0f, 0f, lockedHeadAngle + reactionAngleOffset);
         }
@@ -118,14 +120,26 @@ public class testHead : MonoBehaviour
             if (opponentRoot != null && hit.transform != opponentRoot && !hit.transform.IsChildOf(opponentRoot))
                 continue;
 
-            if (hit.CompareTag("RightHand"))
+            RightHand rightHand = hit.GetComponent<RightHand>();
+            if (rightHand != null && rightHand.IsPunching)
             {
+                if (!CanTakeHeadHit() || !rightHand.IsHeadPunch)
+                {
+                    continue;
+                }
+
                 RegisterHit(true);
                 return;
             }
 
-            if (hit.CompareTag("LeftHand"))
+            LeftHand leftHand = hit.GetComponent<LeftHand>();
+            if (leftHand != null && leftHand.IsPunching)
             {
+                if (!CanTakeHeadHit() || !leftHand.IsHeadPunch)
+                {
+                    continue;
+                }
+
                 RegisterHit(false);
                 return;
             }
@@ -137,10 +151,12 @@ public class testHead : MonoBehaviour
         hitCount++;
         recentlyHit = true;
         Invoke(nameof(ResetHit), hitCooldown);
+        Debug.Log($"{name}: hit on head. Head hits = {hitCount}.");
 
         if (hitCount >= hitsToKnockdown)
         {
             knockedDown = true;
+            Debug.Log($"{name}: knocked down from head hits.");
 
             if (ringFlash != null)
                 ringFlash.StayHit();
@@ -179,5 +195,10 @@ public class testHead : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
+    }
+
+    bool CanTakeHeadHit()
+    {
+        return ownerTorso == null || !ownerTorso.duck;
     }
 }

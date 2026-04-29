@@ -8,17 +8,29 @@ public class LeftHand : MonoBehaviour
     bool punching = false;
     public static bool isPunching = false;
     Quaternion punchLockedRotation;
+    Torso ownerTorso;
 
     [SerializeField] float guardLocalAngle = 1f;
+
+    public bool IsPunching => punching;
+    public bool IsBodyPunch => punching && ownerTorso != null && ownerTorso.duck;
+    public bool IsHeadPunch => punching && ownerTorso != null && !ownerTorso.duck;
+    public Torso OwnerTorso => ownerTorso;
 
     void Start()
     {
         anim = GetComponent<Animator>();
         cam = Camera.main;
+        ownerTorso = GetComponentInParent<Torso>();
     }
 
     void Update()
     {
+        if (ownerTorso != null && !ownerTorso.AllowPlayerInput)
+        {
+            return;
+        }
+
         if (!punching && Input.GetKeyDown(KeyCode.Mouse1))
         {
             Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);

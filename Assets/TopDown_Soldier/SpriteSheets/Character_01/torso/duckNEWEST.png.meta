@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 58751b6ebfc3cb84c96fcb67af2405c0
+guid: 048387174becd8544a8fed5c5dd3712e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8405387796515942215
-    second: shoulder_0
-  - first:
-      213: 8747232903666005825
-    second: shoulder_1
+      213: -1620544138160210419
+    second: duckNEWEST_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,45 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: shoulder_0
+      name: duckNEWEST_0
       rect:
         serializedVersion: 2
-        x: 100
-        y: 62
-        width: 235
-        height: 217
+        x: 154
+        y: 8
+        width: 853
+        height: 831
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 74f6cb2daafe5a470800000000000000
-      internalID: 8405387796515942215
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: shoulder_1
-      rect:
-        serializedVersion: 2
-        x: 1402
-        y: 263
-        width: 6
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 147fe962bf9646970800000000000000
-      internalID: 8747232903666005825
+      spriteID: d0e7e1e31bba289e0800000000000000
+      internalID: -1620544138160210419
       vertices: []
       indices: 
       edges: []
@@ -150,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 57da461617b82f841acbe8159a40c50e
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -159,9 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      shoulder_0: 8405387796515942215
-      shoulder_1: 8747232903666005825
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
