@@ -24,13 +24,14 @@ public class testBody : MonoBehaviour
 
     void Start()
     {
-        ownerTorso = torso != null ? torso.GetComponent<Torso>() : GetComponent<Torso>();
+        ResolveOwnerTorso();
     }
 
     void Update()
     {
         if (knockedDown) return;
 
+        ResolveOwnerTorso();
         if (!recentlyHit)
         {
             CheckForHits();
@@ -57,6 +58,12 @@ public class testBody : MonoBehaviour
                     continue;
                 }
 
+                if (IsBlockedByIdleHand(hit))
+                {
+                    Debug.Log($"{name}: body punch negated by idle guard hand.");
+                    return;
+                }
+
                 RegisterHit();
                 return;
             }
@@ -67,6 +74,12 @@ public class testBody : MonoBehaviour
                 if (!CanTakeBodyHit() || !brawlerRightHand.IsBodyPunch)
                 {
                     continue;
+                }
+
+                if (IsBlockedByIdleHand(hit))
+                {
+                    Debug.Log($"{name}: body punch negated by idle guard hand.");
+                    return;
                 }
 
                 RegisterHit();
@@ -81,6 +94,12 @@ public class testBody : MonoBehaviour
                     continue;
                 }
 
+                if (IsBlockedByIdleHand(hit))
+                {
+                    Debug.Log($"{name}: body punch negated by idle guard hand.");
+                    return;
+                }
+
                 RegisterHit();
                 return;
             }
@@ -91,6 +110,12 @@ public class testBody : MonoBehaviour
                 if (!CanTakeBodyHit() || !brawlerLeftHand.IsBodyPunch)
                 {
                     continue;
+                }
+
+                if (IsBlockedByIdleHand(hit))
+                {
+                    Debug.Log($"{name}: body punch negated by idle guard hand.");
+                    return;
                 }
 
                 RegisterHit();
@@ -132,6 +157,100 @@ public class testBody : MonoBehaviour
     bool CanTakeBodyHit()
     {
         return true;
+    }
+
+    bool IsBlockedByIdleHand(Collider2D attackingCollider)
+    {
+        if (ownerTorso == null || !ownerTorso.duck)
+        {
+            return false;
+        }
+
+        if (ownerRoot == null || attackingCollider == null)
+        {
+            return false;
+        }
+
+        Collider2D[] blockingColliders = ownerRoot.GetComponentsInChildren<Collider2D>(true);
+        foreach (Collider2D blockingCollider in blockingColliders)
+        {
+            if (blockingCollider == null || blockingCollider == attackingCollider)
+            {
+                continue;
+            }
+
+            if (!blockingCollider.CompareTag("LeftHand") && !blockingCollider.CompareTag("RightHand"))
+            {
+                continue;
+            }
+
+            if (!IsIdleDefenderHand(blockingCollider))
+            {
+                continue;
+            }
+
+            if (blockingCollider.IsTouching(attackingCollider))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    bool IsIdleDefenderHand(Collider2D handCollider)
+    {
+        RightHand rightHand = handCollider.GetComponent<RightHand>();
+        if (rightHand != null)
+        {
+            return !rightHand.IsPunching;
+        }
+
+        LeftHand leftHand = handCollider.GetComponent<LeftHand>();
+        if (leftHand != null)
+        {
+            return !leftHand.IsPunching;
+        }
+
+        BrawlerRightHand brawlerRightHand = handCollider.GetComponent<BrawlerRightHand>();
+        if (brawlerRightHand != null)
+        {
+            return !brawlerRightHand.IsPunching;
+        }
+
+        BrawlerLeftHand brawlerLeftHand = handCollider.GetComponent<BrawlerLeftHand>();
+        if (brawlerLeftHand != null)
+        {
+            return !brawlerLeftHand.IsPunching;
+        }
+
+        return false;
+    }
+
+    void ResolveOwnerTorso()
+    {
+        if (ownerTorso == null)
+        {
+            if (torso != null)
+            {
+                ownerTorso = torso.GetComponent<Torso>();
+            }
+
+            if (ownerTorso == null && ownerRoot != null)
+            {
+                ownerTorso = ownerRoot.GetComponentInChildren<Torso>(true);
+            }
+
+            if (ownerTorso == null)
+            {
+                ownerTorso = GetComponentInParent<Torso>();
+            }
+        }
+
+        if (torso == null && ownerTorso != null)
+        {
+            torso = ownerTorso.gameObject;
+        }
     }
 
     void OnDrawGizmosSelected()

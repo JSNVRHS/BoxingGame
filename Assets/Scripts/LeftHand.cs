@@ -30,10 +30,9 @@ public class LeftHand : MonoBehaviour
             return;
         }
 
-        if (!punching && Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            anim.SetTrigger("punch");
-            StartCoroutine(PunchCooldown());
+            TryPunch();
         }
     }
 
@@ -52,5 +51,17 @@ public class LeftHand : MonoBehaviour
         yield return new WaitForSeconds(0.80f);
         isPunching = false;
         punching = false;
+    }
+
+    public bool TryPunch()
+    {
+        if (punching || anim == null)
+        {
+            return false;
+        }
+
+        anim.SetTrigger("punch");
+        StartCoroutine(PunchCooldown());
+        return true;
     }
 }

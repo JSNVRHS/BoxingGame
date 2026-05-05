@@ -28,18 +28,21 @@ public class testHead : MonoBehaviour
     [SerializeField] float detectionRadius = 0.5f;
     [SerializeField] float hitCooldown = 0.5f;
     [SerializeField] int hitsToKnockdown = 4;
+    [SerializeField] float brawlerDodgeWindow = 1f;
 
     float lockedHeadAngle = 0f;
     float reactionAngleOffset = 0f;
+    float brawlerEntryTime = float.NegativeInfinity;
 
     int hitCount = 0;
     bool knockedDown = false;
     bool recentlyHit = false;
+    bool wasDuckingLastFrame = false;
 
     void Start()
     {
         head = GetComponent<Rigidbody2D>();
-        ownerTorso = torso != null ? torso.GetComponent<Torso>() : null;
+        ResolveOwnerTorso();
 
         if (aimAtMouse)
         {
@@ -51,6 +54,8 @@ public class testHead : MonoBehaviour
     {
         if (knockedDown) return;
 
+        ResolveOwnerTorso();
+        TrackBrawlerEntry();
         StickToTorso();
         reactionAngleOffset = Mathf.LerpAngle(
             reactionAngleOffset,
@@ -75,6 +80,11 @@ public class testHead : MonoBehaviour
 
     void StickToTorso()
     {
+        if (torso == null)
+        {
+            return;
+        }
+
         head.transform.position = torso.transform.position;
     }
 
@@ -110,6 +120,11 @@ public class testHead : MonoBehaviour
 
     void CheckForHits()
     {
+        if (IsInBrawlerDodgeWindow())
+        {
+            return;
+        }
+
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
 
         foreach (Collider2D hit in hits)
@@ -126,6 +141,18 @@ public class testHead : MonoBehaviour
                 if (!CanTakeHeadHit() || !rightHand.IsHeadPunch)
                 {
                     continue;
+                }
+
+                if (ShouldSlipOutfighterPunch())
+                {
+                    Debug.Log($"{name}: OS punch slipped during fresh BS window.");
+                    return;
+                }
+
+                if (IsBlockedByIdleHand(hit))
+                {
+                    Debug.Log($"{name}: head punch negated by idle guard hand.");
+                    return;
                 }
 
                 RegisterHit(true);
@@ -150,6 +177,18 @@ public class testHead : MonoBehaviour
                 if (!CanTakeHeadHit() || !leftHand.IsHeadPunch)
                 {
                     continue;
+                }
+
+                if (ShouldSlipOutfighterPunch())
+                {
+                    Debug.Log($"{name}: OS punch slipped during fresh BS window.");
+                    return;
+                }
+
+                if (IsBlockedByIdleHand(hit))
+                {
+                    Debug.Log($"{name}: head punch negated by idle guard hand.");
+                    return;
                 }
 
                 RegisterHit(false);
@@ -223,6 +262,124 @@ public class testHead : MonoBehaviour
 
     bool CanTakeHeadHit()
     {
-        return ownerTorso == null || !ownerTorso.duck;
+        return true;
+    }
+
+    bool ShouldSlipOutfighterPunch()
+    {
+        return IsInBrawlerDodgeWindow();
+    }
+
+    bool IsBlockedByIdleHand(Collider2D attackingCollider)
+    {
+        if (ownerTorso == null || ownerTorso.duck)
+        {
+            return false;
+        }
+
+        if (ownerRoot == null || attackingCollider == null)
+        {
+            return false;
+        }
+
+        Collider2D[] blockingColliders = ownerRoot.GetComponentsInChildren<Collider2D>(true);
+        foreach (Collider2D blockingCollider in blockingColliders)
+        {
+            if (blockingCollider == null || blockingCollider == attackingCollider)
+            {
+                continue;
+            }
+
+            if (!blockingCollider.CompareTag("LeftHand") && !blockingCollider.CompareTag("RightHand"))
+            {
+                continue;
+            }
+
+            if (!IsIdleDefenderHand(blockingCollider))
+            {
+                continue;
+            }
+
+            if (blockingCollider.IsTouching(attackingCollider))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    bool IsIdleDefenderHand(Collider2D handCollider)
+    {
+        RightHand rightHand = handCollider.GetComponent<RightHand>();
+        if (rightHand != null)
+        {
+            return !rightHand.IsPunching;
+        }
+
+        LeftHand leftHand = handCollider.GetComponent<LeftHand>();
+        if (leftHand != null)
+        {
+            return !leftHand.IsPunching;
+        }
+
+        BrawlerRightHand brawlerRightHand = handCollider.GetComponent<BrawlerRightHand>();
+        if (brawlerRightHand != null)
+        {
+            return !brawlerRightHand.IsPunching;
+        }
+
+        BrawlerLeftHand brawlerLeftHand = handCollider.GetComponent<BrawlerLeftHand>();
+        if (brawlerLeftHand != null)
+        {
+            return !brawlerLeftHand.IsPunching;
+        }
+
+        return false;
+    }
+
+    void ResolveOwnerTorso()
+    {
+        if (ownerTorso == null)
+        {
+            if (torso != null)
+            {
+                ownerTorso = torso.GetComponent<Torso>();
+            }
+
+            if (ownerTorso == null && ownerRoot != null)
+            {
+                ownerTorso = ownerRoot.GetComponentInChildren<Torso>(true);
+            }
+
+            if (ownerTorso == null)
+            {
+                ownerTorso = GetComponentInParent<Torso>();
+            }
+        }
+
+        if (torso == null && ownerTorso != null)
+        {
+            torso = ownerTorso.gameObject;
+        }
+    }
+
+    void TrackBrawlerEntry()
+    {
+        bool isDucking = ownerTorso != null && ownerTorso.duck;
+
+        if (isDucking && !wasDuckingLastFrame)
+        {
+            brawlerEntryTime = Time.time;
+        }
+
+        wasDuckingLastFrame = isDucking;
+    }
+
+    bool IsInBrawlerDodgeWindow()
+    {
+        return ownerTorso != null &&
+               ownerTorso.duck &&
+               Time.time - brawlerEntryTime <= brawlerDodgeWindow;
     }
 }

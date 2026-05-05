@@ -24,7 +24,9 @@ public class Torso : MonoBehaviour
     [SerializeField] float rightPunchRotateRight = 30f;
     [SerializeField] float leftPunchRotateLeft = 30f;
     [SerializeField] float leftPunchRotateRight = 30f;
+    [SerializeField] float brawlerSlipWindowDuration = 5f;
     bool lastAppliedDuck;
+    float lastBrawlerEntryTime = float.NegativeInfinity;
 
     void Start()
     {
@@ -158,6 +160,11 @@ public class Torso : MonoBehaviour
             anim.SetBool("duck", duck);
         }
 
+        if (duck && (!lastAppliedDuck || forceRefresh))
+        {
+            lastBrawlerEntryTime = Time.time;
+        }
+
         lastAppliedDuck = duck;
     }
 
@@ -214,6 +221,11 @@ public class Torso : MonoBehaviour
     {
         return (rightHand != null && rightHand.IsPunching) ||
                (brawlerRightHand != null && brawlerRightHand.IsPunching);
+    }
+
+    public bool HasFreshBrawlerSlipWindow()
+    {
+        return duck && Time.time - lastBrawlerEntryTime <= brawlerSlipWindowDuration;
     }
 
     Transform FindNamedChild(string childName)
