@@ -27,14 +27,14 @@ public class testHead : MonoBehaviour
     [SerializeField] float returnSpeed = 2f;
     [SerializeField] float detectionRadius = 0.5f;
     [SerializeField] float hitCooldown = 0.5f;
-    [SerializeField] int hitsToKnockdown = 4;
     [SerializeField] float brawlerDodgeWindow = 1f;
+    [SerializeField] int maxHeadHp = 5;
 
     float lockedHeadAngle = 0f;
     float reactionAngleOffset = 0f;
     float brawlerEntryTime = float.NegativeInfinity;
 
-    int hitCount = 0;
+    int currentHeadHp;
     bool knockedDown = false;
     bool recentlyHit = false;
     bool wasDuckingLastFrame = false;
@@ -48,6 +48,8 @@ public class testHead : MonoBehaviour
         {
             cam = Camera.main;
         }
+
+        currentHeadHp = maxHeadHp;
     }
 
     void Update()
@@ -135,15 +137,14 @@ public class testHead : MonoBehaviour
             if (opponentRoot != null && hit.transform != opponentRoot && !hit.transform.IsChildOf(opponentRoot))
                 continue;
 
-            RightHand rightHand = hit.GetComponent<RightHand>();
-            if (rightHand != null && rightHand.IsPunching)
+            if (ImpactDamageUtility.TryGetHandImpactInfo(hit, out ImpactDamageUtility.HandImpactInfo handImpactInfo))
             {
-                if (!CanTakeHeadHit() || !rightHand.IsHeadPunch)
+                if (!handImpactInfo.isPunching || !CanTakeHeadHit() || !handImpactInfo.isHeadPunch)
                 {
                     continue;
                 }
 
-                if (ShouldSlipOutfighterPunch())
+                if (ShouldSlipOutfighterPunch() && !hit.GetComponent<BrawlerRightHand>() && !hit.GetComponent<BrawlerLeftHand>())
                 {
                     Debug.Log($"{name}: OS punch slipped during fresh BS window.");
                     return;
@@ -155,71 +156,58 @@ public class testHead : MonoBehaviour
                     return;
                 }
 
-                RegisterHit(true);
-                return;
-            }
-
-            BrawlerRightHand brawlerRightHand = hit.GetComponent<BrawlerRightHand>();
-            if (brawlerRightHand != null && brawlerRightHand.IsPunching)
-            {
-                if (!CanTakeHeadHit() || !brawlerRightHand.IsHeadPunch)
-                {
-                    continue;
-                }
-
-                RegisterHit(true);
-                return;
-            }
-
-            LeftHand leftHand = hit.GetComponent<LeftHand>();
-            if (leftHand != null && leftHand.IsPunching)
-            {
-                if (!CanTakeHeadHit() || !leftHand.IsHeadPunch)
-                {
-                    continue;
-                }
-
-                if (ShouldSlipOutfighterPunch())
-                {
-                    Debug.Log($"{name}: OS punch slipped during fresh BS window.");
-                    return;
-                }
-
-                if (IsBlockedByIdleHand(hit))
-                {
-                    Debug.Log($"{name}: head punch negated by idle guard hand.");
-                    return;
-                }
-
-                RegisterHit(false);
-                return;
-            }
-
-            BrawlerLeftHand brawlerLeftHand = hit.GetComponent<BrawlerLeftHand>();
-            if (brawlerLeftHand != null && brawlerLeftHand.IsPunching)
-            {
-                if (!CanTakeHeadHit() || !brawlerLeftHand.IsHeadPunch)
-                {
-                    continue;
-                }
-
-                RegisterHit(false);
+                bool isRightHand = hit.CompareTag("RightHand");
+                RegisterHit(isRightHand, handImpactInfo, hit.transform.root);
                 return;
             }
         }
     }
 
-    void RegisterHit(bool isRightHand)
+    void RegisterHit(bool isRightHand, ImpactDamageUtility.HandImpactInfo handImpactInfo, Transform attackerRoot)
     {
-        hitCount++;
         recentlyHit = true;
         Invoke(nameof(ResetHit), hitCooldown);
-        Debug.Log($"{name}: hit on head. Head hits = {hitCount}.");
 
-        if (hitCount >= hitsToKnockdown)
+        ImpactDamageUtility.ImpactBreakdown impactBreakdown = ImpactDamageUtility.CalculateImpactBreakdown(
+            handImpactInfo.reachedPeakRotation,
+            ownerTorso,
+            ownerRoot,
+            attackerRoot
+        );
+        int damage = impactBreakdown.damage;
+        string reasons = ImpactDamageUtility.FormatReasons(impactBreakdown);
+
+        if (damage <= 0)
+        {
+            Debug.Log($"{name}: head contact caused 0 damage. Reasons: {reasons}.");
+            return;
+        }
+
+        currentHeadHp = Mathf.Max(0, currentHeadHp - damage);
+        Debug.Log($"{name}: hit on head for {damage} damage. Head HP = {currentHeadHp}/{maxHeadHp}. Reasons: {reasons}.");
+
+        if (isRightHand)
+            reactionAngleOffset = -hitRotationAmount;
+        else
+            reactionAngleOffset = hitRotationAmount;
+
+        if (damage >= 2)
+        {
+            SpawnBlood();
+
+            if (ringFlash != null)
+                ringFlash.Flash();
+        }
+
+        if (damage >= 3)
+        {
+            Debug.Log($"{name}: head injury.");
+        }
+
+        if (currentHeadHp <= 0)
         {
             knockedDown = true;
-            Debug.Log($"{name}: knocked down from head hits.");
+            Debug.Log($"{name}: knocked down from head damage.");
 
             if (ringFlash != null)
                 ringFlash.StayHit();
@@ -229,16 +217,6 @@ public class testHead : MonoBehaviour
 
             return;
         }
-
-        if (isRightHand)
-            reactionAngleOffset = -hitRotationAmount;
-        else
-            reactionAngleOffset = hitRotationAmount;
-
-        SpawnBlood();
-
-        if (ringFlash != null)
-            ringFlash.Flash();
     }
 
     void ResetHit()

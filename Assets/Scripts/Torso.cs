@@ -27,6 +27,7 @@ public class Torso : MonoBehaviour
     [SerializeField] float brawlerSlipWindowDuration = 5f;
     bool lastAppliedDuck;
     float lastBrawlerEntryTime = float.NegativeInfinity;
+    bool reachedRotationCapThisPunch = false;
 
     void Start()
     {
@@ -67,12 +68,19 @@ public class Torso : MonoBehaviour
             float rotateLeft = rightPunching ? rightPunchRotateLeft : leftPunchRotateLeft;
             float rotateRight = rightPunching ? rightPunchRotateRight : leftPunchRotateRight;
 
-            float delta = Mathf.DeltaAngle(lockedTorsoAngle, angleDeg);
-            delta = Mathf.Clamp(delta, -rotateRight, rotateLeft);
-            torso.transform.rotation = Quaternion.Euler(0f, 0f, lockedTorsoAngle + delta);
+            float rawDelta = Mathf.DeltaAngle(lockedTorsoAngle, angleDeg);
+            float clampedDelta = Mathf.Clamp(rawDelta, -rotateRight, rotateLeft);
+
+            if (!Mathf.Approximately(rawDelta, clampedDelta))
+            {
+                reachedRotationCapThisPunch = true;
+            }
+
+            torso.transform.rotation = Quaternion.Euler(0f, 0f, lockedTorsoAngle + clampedDelta);
         }
         else
         {
+            reachedRotationCapThisPunch = false;
             lockedTorsoAngle = angleDeg;
             torso.transform.rotation = Quaternion.Euler(0f, 0f, angleDeg);
         }
@@ -226,6 +234,11 @@ public class Torso : MonoBehaviour
     public bool HasFreshBrawlerSlipWindow()
     {
         return duck && Time.time - lastBrawlerEntryTime <= brawlerSlipWindowDuration;
+    }
+
+    public bool HasReachedRotationCapThisPunch()
+    {
+        return reachedRotationCapThisPunch;
     }
 
     Transform FindNamedChild(string childName)

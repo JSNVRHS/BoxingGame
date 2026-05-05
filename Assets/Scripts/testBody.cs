@@ -9,22 +9,25 @@ public class testBody : MonoBehaviour
     [SerializeField] Transform opponentRoot;
 
     [Header("Effects / Knockdown")]
+    [SerializeField] GameObject bloodPrefab;
+    [SerializeField] Transform bloodSpawnPoint;
     [SerializeField] RingFlash ringFlash;
     [SerializeField] NPCKnockdown knockdown;
 
     [Header("Body Hit Reaction")]
     [SerializeField] float detectionRadius = 0.5f;
     [SerializeField] float hitCooldown = 0.5f;
-    [SerializeField] int hitsToKnockdown = 3;
+    [SerializeField] int maxBodyHp = 10;
 
     Torso ownerTorso;
-    int hitCount = 0;
+    int currentBodyHp;
     bool knockedDown = false;
     bool recentlyHit = false;
 
     void Start()
     {
         ResolveOwnerTorso();
+        currentBodyHp = maxBodyHp;
     }
 
     void Update()
@@ -50,10 +53,9 @@ public class testBody : MonoBehaviour
             if (opponentRoot != null && hit.transform != opponentRoot && !hit.transform.IsChildOf(opponentRoot))
                 continue;
 
-            RightHand rightHand = hit.GetComponent<RightHand>();
-            if (rightHand != null && rightHand.IsPunching)
+            if (ImpactDamageUtility.TryGetHandImpactInfo(hit, out ImpactDamageUtility.HandImpactInfo handImpactInfo))
             {
-                if (!CanTakeBodyHit() || !rightHand.IsBodyPunch)
+                if (!handImpactInfo.isPunching || !CanTakeBodyHit() || !handImpactInfo.isBodyPunch)
                 {
                     continue;
                 }
@@ -64,77 +66,52 @@ public class testBody : MonoBehaviour
                     return;
                 }
 
-                RegisterHit();
-                return;
-            }
-
-            BrawlerRightHand brawlerRightHand = hit.GetComponent<BrawlerRightHand>();
-            if (brawlerRightHand != null && brawlerRightHand.IsPunching)
-            {
-                if (!CanTakeBodyHit() || !brawlerRightHand.IsBodyPunch)
-                {
-                    continue;
-                }
-
-                if (IsBlockedByIdleHand(hit))
-                {
-                    Debug.Log($"{name}: body punch negated by idle guard hand.");
-                    return;
-                }
-
-                RegisterHit();
-                return;
-            }
-
-            LeftHand leftHand = hit.GetComponent<LeftHand>();
-            if (leftHand != null && leftHand.IsPunching)
-            {
-                if (!CanTakeBodyHit() || !leftHand.IsBodyPunch)
-                {
-                    continue;
-                }
-
-                if (IsBlockedByIdleHand(hit))
-                {
-                    Debug.Log($"{name}: body punch negated by idle guard hand.");
-                    return;
-                }
-
-                RegisterHit();
-                return;
-            }
-
-            BrawlerLeftHand brawlerLeftHand = hit.GetComponent<BrawlerLeftHand>();
-            if (brawlerLeftHand != null && brawlerLeftHand.IsPunching)
-            {
-                if (!CanTakeBodyHit() || !brawlerLeftHand.IsBodyPunch)
-                {
-                    continue;
-                }
-
-                if (IsBlockedByIdleHand(hit))
-                {
-                    Debug.Log($"{name}: body punch negated by idle guard hand.");
-                    return;
-                }
-
-                RegisterHit();
+                RegisterHit(handImpactInfo, hit.transform.root);
                 return;
             }
         }
     }
 
-    void RegisterHit()
+    void RegisterHit(ImpactDamageUtility.HandImpactInfo handImpactInfo, Transform attackerRoot)
     {
-        hitCount++;
         recentlyHit = true;
         Invoke(nameof(ResetHit), hitCooldown);
-        Debug.Log($"{name}: hit on body. Body hits = {hitCount}.");
 
-        if (hitCount >= hitsToKnockdown)
+        ImpactDamageUtility.ImpactBreakdown impactBreakdown = ImpactDamageUtility.CalculateImpactBreakdown(
+            handImpactInfo.reachedPeakRotation,
+            ownerTorso,
+            ownerRoot,
+            attackerRoot
+        );
+        int damage = impactBreakdown.damage;
+        string reasons = ImpactDamageUtility.FormatReasons(impactBreakdown);
+
+        if (damage <= 0)
+        {
+            Debug.Log($"{name}: body contact caused 0 damage. Reasons: {reasons}.");
+            return;
+        }
+
+        currentBodyHp = Mathf.Max(0, currentBodyHp - damage);
+        Debug.Log($"{name}: hit on body for {damage} damage. Body HP = {currentBodyHp}/{maxBodyHp}. Reasons: {reasons}.");
+
+        if (damage >= 2)
+        {
+            SpawnBlood();
+
+            if (ringFlash != null)
+                ringFlash.Flash();
+        }
+
+        if (damage >= 3)
+        {
+            Debug.Log($"{name}: body injury.");
+        }
+
+        if (currentBodyHp <= 0)
         {
             knockedDown = true;
-            Debug.Log($"{name}: knocked down from body hits.");
+            Debug.Log($"{name}: knocked down from body damage.");
 
             if (ringFlash != null)
                 ringFlash.StayHit();
@@ -144,9 +121,6 @@ public class testBody : MonoBehaviour
 
             return;
         }
-
-        if (ringFlash != null)
-            ringFlash.Flash();
     }
 
     void ResetHit()
@@ -157,6 +131,17 @@ public class testBody : MonoBehaviour
     bool CanTakeBodyHit()
     {
         return true;
+    }
+
+    void SpawnBlood()
+    {
+        if (bloodPrefab == null)
+        {
+            return;
+        }
+
+        Transform spawnPoint = bloodSpawnPoint != null ? bloodSpawnPoint : transform;
+        Instantiate(bloodPrefab, spawnPoint.position, spawnPoint.rotation);
     }
 
     bool IsBlockedByIdleHand(Collider2D attackingCollider)

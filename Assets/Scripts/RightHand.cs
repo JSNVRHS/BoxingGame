@@ -10,11 +10,15 @@ public class RightHand : MonoBehaviour
     Vector3 idleLocalPosition;
     Quaternion idleLocalRotation;
     Vector3 idleLocalScale;
+    float idleLocalZRotation;
+    bool reachedPeakRotationThisPunch = false;
+    [SerializeField] float peakRotationThreshold = 20f;
 
     public bool IsPunching => punching;
     public bool IsBodyPunch => false;
     public bool IsHeadPunch => punching;
     public Torso OwnerTorso => ownerTorso;
+    public bool HasReachedPeakRotationThisPunch => reachedPeakRotationThisPunch;
 
     void Start()
     {
@@ -30,15 +34,16 @@ public class RightHand : MonoBehaviour
             return;
         }
 
-        if (!punching && Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            anim.SetTrigger("punch");
-            StartCoroutine(PunchCooldown());
+            TryPunch();
         }
     }
 
     void LateUpdate()
     {
+        TrackPeakRotation();
+
         if (!punching)
         {
             transform.localPosition = idleLocalPosition;
@@ -51,9 +56,22 @@ public class RightHand : MonoBehaviour
     {
         isPunching = true;
         punching = true;
+        reachedPeakRotationThisPunch = false;
         yield return new WaitForSeconds(0.80f);
         isPunching = false;
         punching = false;
+    }
+
+    public bool TryPunch()
+    {
+        if (punching || anim == null)
+        {
+            return false;
+        }
+
+        anim.SetTrigger("punch");
+        StartCoroutine(PunchCooldown());
+        return true;
     }
 
     void CaptureIdleTransform()
@@ -61,5 +79,21 @@ public class RightHand : MonoBehaviour
         idleLocalPosition = transform.localPosition;
         idleLocalRotation = transform.localRotation;
         idleLocalScale = transform.localScale;
+        idleLocalZRotation = transform.localEulerAngles.z;
+    }
+
+    void TrackPeakRotation()
+    {
+        if (!punching || reachedPeakRotationThisPunch)
+        {
+            return;
+        }
+
+        float currentZ = transform.localEulerAngles.z;
+        float rotationDelta = Mathf.Abs(Mathf.DeltaAngle(idleLocalZRotation, currentZ));
+        if (rotationDelta >= peakRotationThreshold)
+        {
+            reachedPeakRotationThisPunch = true;
+        }
     }
 }

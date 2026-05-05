@@ -7,10 +7,9 @@ public class SimpleOSNpcAI : MonoBehaviour
     [SerializeField] Torso torso;
     [SerializeField] LeftHand leftHand;
     [SerializeField] RightHand rightHand;
-    [SerializeField] float countdownStepDuration = 1f;
+    [SerializeField] float attackInterval = 1f;
 
-    float nextCountdownTime;
-    int countdownValue = 3;
+    float nextAttackTime;
     bool leftAiPunching;
     bool rightAiPunching;
     FieldInfo leftPunchingField;
@@ -23,7 +22,7 @@ public class SimpleOSNpcAI : MonoBehaviour
         leftPunchingField = typeof(LeftHand).GetField("punching", BindingFlags.Instance | BindingFlags.NonPublic);
         rightPunchingField = typeof(RightHand).GetField("punching", BindingFlags.Instance | BindingFlags.NonPublic);
 
-        StartCountdown();
+        nextAttackTime = Time.time + attackInterval;
         DebugAssignmentState();
     }
 
@@ -41,31 +40,15 @@ public class SimpleOSNpcAI : MonoBehaviour
             return;
         }
 
-        if (Time.time < nextCountdownTime)
+        if (Time.time < nextAttackTime)
         {
-            return;
-        }
-
-        if (countdownValue > 1)
-        {
-            countdownValue--;
-            Debug.Log($"{name}: {countdownValue}");
-            nextCountdownTime = Time.time + countdownStepDuration;
-            return;
-        }
-
-        if (countdownValue == 1)
-        {
-            Debug.Log($"{name}: 1");
-            countdownValue = 0;
-            nextCountdownTime = Time.time + countdownStepDuration;
             return;
         }
 
         bool punched = TryPunch(leftHand, isRightHand: false);
         if (punched)
         {
-            StartCountdown();
+            nextAttackTime = Time.time + attackInterval;
         }
     }
 
@@ -89,7 +72,7 @@ public class SimpleOSNpcAI : MonoBehaviour
 
         anim.SetTrigger("punch");
         StartCoroutine(PunchRoutine(handBehaviour, isRightHand));
-        Debug.Log($"{name}: NPC threw {(isRightHand ? "right" : "left")} OS straight.");
+        // Debug.Log($"{name}: NPC threw {(isRightHand ? "right" : "left")} OS straight.");
         return true;
     }
 
@@ -125,13 +108,6 @@ public class SimpleOSNpcAI : MonoBehaviour
     bool IsAnyPunchActive()
     {
         return leftAiPunching || rightAiPunching;
-    }
-
-    void StartCountdown()
-    {
-        countdownValue = 3;
-        Debug.Log($"{name}: 3");
-        nextCountdownTime = Time.time + countdownStepDuration;
     }
 
     void AutoAssignReferences()
