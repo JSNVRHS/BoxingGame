@@ -78,18 +78,6 @@ public class Torso : MonoBehaviour
 
     public void Duck()
     {
-        duck = false;
-
-        if (brawlerStance != null && brawlerStance.activeSelf)
-        {
-            brawlerStance.SetActive(false);
-        }
-
-        if (outfighterStance != null && !outfighterStance.activeSelf)
-        {
-            outfighterStance.SetActive(true);
-        }
-
         if (!allowPlayerInput)
         {
             ApplyStanceState();
@@ -100,6 +88,15 @@ public class Torso : MonoBehaviour
         {
             ApplyStanceState();
             return;
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            duck = true;
+        }
+        else
+        {
+            duck = false;
         }
 
         ApplyStanceState();

@@ -1445,7 +1445,7 @@ Transform:
   m_GameObject: {fileID: 664264312}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.9054892, w: -0.42436934}
-  m_LocalPosition: {x: 0.07, y: 0.07, z: 0}
+  m_LocalPosition: {x: 0.04, y: -0.1, z: 0}
   m_LocalScale: {x: 0.79618996, y: 0.7435061, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1584,7 +1584,7 @@ Transform:
   m_GameObject: {fileID: 743022589}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.14, y: -0.43, z: 0}
+  m_LocalPosition: {x: -0.1, y: -0.51, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2146,7 +2146,7 @@ MonoBehaviour:
   rightHand: {fileID: 0}
   brawlerLeftHand: {fileID: 0}
   brawlerRightHand: {fileID: 0}
-  allowPlayerInput: 1
+  allowPlayerInput: 0
   rightPunchRotateLeft: 100
   rightPunchRotateRight: 30
   leftPunchRotateLeft: 30
@@ -4077,14 +4077,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805755122}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -4094,7 +4094,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!95 &1805755126
 Animator:
