@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      brow cut_0: -5501330841441434702
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      boxingRingCelebration_0: -2484823066006046375
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
