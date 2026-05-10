@@ -18,6 +18,7 @@ public static class ImpactDamageUtility
         public bool defenderAttacking;
         public bool defenderWalkingToward;
         public bool attackerWalkingToward;
+        public bool debugDamageOverride;
     }
 
     public static bool TryGetHandImpactInfo(Collider2D hit, out HandImpactInfo info)
@@ -112,6 +113,15 @@ public static class ImpactDamageUtility
         }
 
         breakdown.damage = breakdown.score >= 4 ? 5 : breakdown.score;
+
+        SimpleOSNpcAI npcAi = attackerRoot != null ? attackerRoot.GetComponentInChildren<SimpleOSNpcAI>(true) : null;
+        if (npcAi != null && npcAi.TryGetOverridePunchDamage(out int overrideDamage))
+        {
+            breakdown.debugDamageOverride = true;
+            breakdown.score = overrideDamage;
+            breakdown.damage = overrideDamage;
+        }
+
         return breakdown;
     }
 
@@ -121,7 +131,8 @@ public static class ImpactDamageUtility
             $"peakRotation={(breakdown.reachedPeakRotation ? 1 : 0)}, " +
             $"defenderAttacking={(breakdown.defenderAttacking ? 1 : 0)}, " +
             $"defenderWalkingToward={(breakdown.defenderWalkingToward ? 1 : 0)}, " +
-            $"attackerWalkingToward={(breakdown.attackerWalkingToward ? 1 : 0)}";
+            $"attackerWalkingToward={(breakdown.attackerWalkingToward ? 1 : 0)}, " +
+            $"debugDamageOverride={(breakdown.debugDamageOverride ? 1 : 0)}";
     }
 
     static bool IsWalkingToward(Transform defenderRoot, Transform attackerRoot)

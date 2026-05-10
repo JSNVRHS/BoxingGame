@@ -25,9 +25,11 @@ public class Torso : MonoBehaviour
     [SerializeField] float leftPunchRotateLeft = 30f;
     [SerializeField] float leftPunchRotateRight = 30f;
     [SerializeField] float brawlerSlipWindowDuration = 5f;
+    [SerializeField] float baseRotationDegreesPerSecond = 1800f;
     bool lastAppliedDuck;
     float lastBrawlerEntryTime = float.NegativeInfinity;
     bool reachedRotationCapThisPunch = false;
+    float rotationSpeedMultiplier = 1f;
 
     void Start()
     {
@@ -76,13 +78,13 @@ public class Torso : MonoBehaviour
                 reachedRotationCapThisPunch = true;
             }
 
-            torso.transform.rotation = Quaternion.Euler(0f, 0f, lockedTorsoAngle + clampedDelta);
+            RotateTorsoToAngle(lockedTorsoAngle + clampedDelta);
         }
         else
         {
             reachedRotationCapThisPunch = false;
             lockedTorsoAngle = angleDeg;
-            torso.transform.rotation = Quaternion.Euler(0f, 0f, angleDeg);
+            RotateTorsoToAngle(angleDeg);
         }
     }
 
@@ -118,6 +120,18 @@ public class Torso : MonoBehaviour
     }
 
     public bool AllowPlayerInput => allowPlayerInput;
+
+    public void SetBrawlerStance(bool value)
+    {
+        if (duck == value)
+        {
+            ApplyStanceState();
+            return;
+        }
+
+        duck = value;
+        ApplyStanceState(forceRefresh: true);
+    }
 
     void CacheStanceRoots()
     {
@@ -241,6 +255,11 @@ public class Torso : MonoBehaviour
         return reachedRotationCapThisPunch;
     }
 
+    public void SetRotationSpeedMultiplier(float multiplier)
+    {
+        rotationSpeedMultiplier = multiplier;
+    }
+
     Transform FindNamedChild(string childName)
     {
         Transform[] descendants = GetComponentsInChildren<Transform>(true);
@@ -296,5 +315,16 @@ public class Torso : MonoBehaviour
         }
 
         return fallback;
+    }
+
+    void RotateTorsoToAngle(float targetZAngle)
+    {
+        Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetZAngle);
+        float rotationSpeed = baseRotationDegreesPerSecond * rotationSpeedMultiplier * Time.deltaTime;
+        torso.transform.rotation = Quaternion.RotateTowards(
+            torso.transform.rotation,
+            targetRotation,
+            rotationSpeed
+        );
     }
 }

@@ -18,15 +18,20 @@ public class testBody : MonoBehaviour
     [SerializeField] float detectionRadius = 0.5f;
     [SerializeField] float hitCooldown = 0.5f;
     [SerializeField] int maxBodyHp = 10;
+    [SerializeField] SpriteRenderer normalTorsoSprite;
+    [SerializeField] GameObject bruisedTorsoObject;
 
     Torso ownerTorso;
     int currentBodyHp;
     bool knockedDown = false;
     bool recentlyHit = false;
+    bool bruisedTorsoShown = false;
 
     void Start()
     {
         ResolveOwnerTorso();
+        ResolveBruisedTorsoVisuals();
+        SetBruisedTorsoVisible(false);
         currentBodyHp = maxBodyHp;
     }
 
@@ -94,6 +99,7 @@ public class testBody : MonoBehaviour
 
         currentBodyHp = Mathf.Max(0, currentBodyHp - damage);
         Debug.Log($"{name}: hit on body for {damage} damage. Body HP = {currentBodyHp}/{maxBodyHp}. Reasons: {reasons}.");
+        UpdateBruisedTorsoVisual();
 
         if (damage >= 2)
         {
@@ -106,12 +112,21 @@ public class testBody : MonoBehaviour
         if (damage >= 3)
         {
             Debug.Log($"{name}: body injury.");
+
+            CharacterInjurySystem injurySystem = ownerRoot != null
+                ? ownerRoot.GetComponentInChildren<CharacterInjurySystem>(true)
+                : null;
+            if (injurySystem != null)
+            {
+                injurySystem.ApplyRandomBodyInjury();
+            }
         }
 
         if (currentBodyHp <= 0)
         {
             knockedDown = true;
             Debug.Log($"{name}: knocked down from body damage.");
+            VictoryPoseUtility.ShowVictoryPose(attackerRoot);
 
             if (ringFlash != null)
                 ringFlash.StayHit();
@@ -121,6 +136,96 @@ public class testBody : MonoBehaviour
 
             return;
         }
+    }
+
+    void UpdateBruisedTorsoVisual()
+    {
+        if (bruisedTorsoShown || currentBodyHp > maxBodyHp / 2)
+        {
+            return;
+        }
+
+        bruisedTorsoShown = true;
+        SetBruisedTorsoVisible(true);
+    }
+
+    void SetBruisedTorsoVisible(bool visible)
+    {
+        if (normalTorsoSprite != null)
+        {
+            normalTorsoSprite.enabled = !visible;
+        }
+
+        if (bruisedTorsoObject != null)
+        {
+            bruisedTorsoObject.SetActive(visible);
+        }
+    }
+
+    void ResolveBruisedTorsoVisuals()
+    {
+        Transform searchRoot = ownerRoot != null ? ownerRoot : transform.root;
+
+        if (normalTorsoSprite == null)
+        {
+            Transform normalTransform = FindNamedChild(searchRoot, "outfighterStance", "torsoSprite");
+            if (normalTransform == null)
+            {
+                normalTransform = FindNamedChild(searchRoot, "torsoSprite");
+            }
+
+            if (normalTransform != null)
+            {
+                normalTorsoSprite = normalTransform.GetComponent<SpriteRenderer>();
+            }
+        }
+
+        if (bruisedTorsoObject == null)
+        {
+            Transform bruisedTransform = FindNamedChild(searchRoot, "outfighterStance", "bruisedTorso");
+            if (bruisedTransform == null)
+            {
+                bruisedTransform = FindNamedChild(searchRoot, "outfighterStance", "bruisedTorsoSprite");
+            }
+            if (bruisedTransform == null)
+            {
+                bruisedTransform = FindNamedChild(searchRoot, "bruisedTorso");
+            }
+            if (bruisedTransform == null)
+            {
+                bruisedTransform = FindNamedChild(searchRoot, "bruisedTorsoSprite");
+            }
+
+            if (bruisedTransform != null)
+            {
+                bruisedTorsoObject = bruisedTransform.gameObject;
+            }
+        }
+    }
+
+    Transform FindNamedChild(Transform root, string childName)
+    {
+        if (root == null)
+        {
+            return null;
+        }
+
+        Transform[] descendants = root.GetComponentsInChildren<Transform>(true);
+        foreach (Transform descendant in descendants)
+        {
+            if (descendant != root && descendant.name == childName)
+            {
+                return descendant;
+            }
+        }
+
+        return null;
+    }
+
+    Transform FindNamedChild(Transform root, string parentName, string childName)
+    {
+        Transform parent = FindNamedChild(root, parentName);
+        return parent != null ? FindNamedChild(parent, childName) : null;
     }
 
     void ResetHit()

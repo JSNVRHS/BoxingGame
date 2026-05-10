@@ -8,6 +8,9 @@ public class Movement : MonoBehaviour
     public Animator anim;
     public bool isMoving = false;
     public float speed = 2f;
+    float speedMultiplier = 1f;
+    bool inputInverted = false;
+    Torso ownerTorso;
 
     public float x;
     public float y;
@@ -19,6 +22,7 @@ public class Movement : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        ownerTorso = GetComponentInParent<Torso>();
 
         x = 0.0f;
         y = 0.0f;
@@ -29,6 +33,11 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (ownerTorso != null && !ownerTorso.AllowPlayerInput)
+        {
+            return;
+        }
+
         x = 0.0f;
         y = 0.0f;
 
@@ -56,6 +65,12 @@ public class Movement : MonoBehaviour
             isMoving = true;
         }
 
+        if (inputInverted)
+        {
+            x *= -1f;
+            y *= -1f;
+        }
+
        
         // setting up the rotation of the legs and their direction for moving
         Vector2 direction = new Vector2(x, y).normalized;;
@@ -63,7 +78,8 @@ public class Movement : MonoBehaviour
         // set property true/false for animation change
         anim.SetBool("walking", isMoving);
         // applying new rotation and direction
-        body.linearVelocity = direction * speed;
+        Vector2 velocity = direction * speed * speedMultiplier;
+        body.linearVelocity = velocity;
         body.transform.rotation = Quaternion.Slerp(body.transform.rotation, turn, 1);
 
         if (isMoving)
@@ -75,5 +91,15 @@ public class Movement : MonoBehaviour
 
 
 
+    }
+
+    public void SetInputInverted(bool value)
+    {
+        inputInverted = value;
+    }
+
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        speedMultiplier = multiplier;
     }
 }

@@ -29,6 +29,9 @@ public class testHead : MonoBehaviour
     [SerializeField] float hitCooldown = 0.5f;
     [SerializeField] float brawlerDodgeWindow = 1f;
     [SerializeField] int maxHeadHp = 5;
+    [SerializeField] SpriteRenderer normalHeadSprite;
+    [SerializeField] GameObject bruisedFaceObject;
+    [SerializeField] int bruisedFaceHpThreshold = 2;
 
     float lockedHeadAngle = 0f;
     float reactionAngleOffset = 0f;
@@ -38,11 +41,14 @@ public class testHead : MonoBehaviour
     bool knockedDown = false;
     bool recentlyHit = false;
     bool wasDuckingLastFrame = false;
+    bool bruisedFaceShown = false;
 
     void Start()
     {
         head = GetComponent<Rigidbody2D>();
         ResolveOwnerTorso();
+        ResolveBruisedFaceVisuals();
+        SetBruisedFaceVisible(false);
 
         if (aimAtMouse)
         {
@@ -185,6 +191,7 @@ public class testHead : MonoBehaviour
 
         currentHeadHp = Mathf.Max(0, currentHeadHp - damage);
         Debug.Log($"{name}: hit on head for {damage} damage. Head HP = {currentHeadHp}/{maxHeadHp}. Reasons: {reasons}.");
+        UpdateBruisedFaceVisual();
 
         if (isRightHand)
             reactionAngleOffset = -hitRotationAmount;
@@ -202,12 +209,21 @@ public class testHead : MonoBehaviour
         if (damage >= 3)
         {
             Debug.Log($"{name}: head injury.");
+
+            CharacterInjurySystem injurySystem = ownerRoot != null
+                ? ownerRoot.GetComponentInChildren<CharacterInjurySystem>(true)
+                : null;
+            if (injurySystem != null)
+            {
+                injurySystem.ApplyRandomHeadInjury();
+            }
         }
 
         if (currentHeadHp <= 0)
         {
             knockedDown = true;
             Debug.Log($"{name}: knocked down from head damage.");
+            VictoryPoseUtility.ShowVictoryPose(attackerRoot);
 
             if (ringFlash != null)
                 ringFlash.StayHit();
@@ -224,12 +240,79 @@ public class testHead : MonoBehaviour
         recentlyHit = false;
     }
 
+    void UpdateBruisedFaceVisual()
+    {
+        if (bruisedFaceShown || bruisedFaceObject == null || currentHeadHp > bruisedFaceHpThreshold)
+        {
+            return;
+        }
+
+        bruisedFaceShown = true;
+        SetBruisedFaceVisible(true);
+    }
+
+    void SetBruisedFaceVisible(bool visible)
+    {
+        if (bruisedFaceObject == null)
+        {
+            return;
+        }
+
+        if (normalHeadSprite != null)
+        {
+            normalHeadSprite.enabled = !visible;
+        }
+
+        bruisedFaceObject.SetActive(visible);
+    }
+
+    void ResolveBruisedFaceVisuals()
+    {
+        if (normalHeadSprite == null)
+        {
+            normalHeadSprite = GetComponent<SpriteRenderer>();
+        }
+
+        if (bruisedFaceObject == null)
+        {
+            Transform bruisedTransform = FindNamedChild(transform, "bruisedFace");
+            if (bruisedTransform != null)
+            {
+                bruisedFaceObject = bruisedTransform.gameObject;
+            }
+        }
+    }
+
+    Transform FindNamedChild(Transform root, string childName)
+    {
+        if (root == null)
+        {
+            return null;
+        }
+
+        Transform[] descendants = root.GetComponentsInChildren<Transform>(true);
+        foreach (Transform descendant in descendants)
+        {
+            if (descendant != root && descendant.name == childName)
+            {
+                return descendant;
+            }
+        }
+
+        return null;
+    }
+
     void SpawnBlood()
     {
         if (bloodPrefab != null && chinTransform != null)
         {
             Instantiate(bloodPrefab, chinTransform.position, chinTransform.rotation);
         }
+    }
+
+    public GameObject GetBloodPrefab()
+    {
+        return bloodPrefab;
     }
 
     void OnDrawGizmosSelected()
