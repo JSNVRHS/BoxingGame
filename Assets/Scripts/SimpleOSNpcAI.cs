@@ -21,6 +21,10 @@ public class SimpleOSNpcAI : MonoBehaviour
     [SerializeField] float brawlerPunchDuration = 0.65f;
     [SerializeField] float comboPunchGap = 0.03f;
     [SerializeField] float punchBodyRotationDegrees = 45f;
+    [Header("Difficulty")]
+    [SerializeField] float hardAttackIntervalMultiplier = 0.7f;
+    [SerializeField] float hardMoveSpeedMultiplier = 1.15f;
+    [SerializeField] float hardRotationSpeedMultiplier = 1.15f;
     [Header("Debug Damage")]
     [SerializeField] bool overridePunchDamage = false;
     [SerializeField, Range(0, 5)] int overridePunchDamageAmount = 4;
@@ -40,6 +44,7 @@ public class SimpleOSNpcAI : MonoBehaviour
     void Start()
     {
         AutoAssignReferences();
+        ApplyMenuDifficulty();
 
         leftPunchingField = typeof(LeftHand).GetField("punching", BindingFlags.Instance | BindingFlags.NonPublic);
         rightPunchingField = typeof(RightHand).GetField("punching", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -48,6 +53,21 @@ public class SimpleOSNpcAI : MonoBehaviour
 
         nextAttackTime = Time.time + attackInterval;
         DebugAssignmentState();
+    }
+
+    void ApplyMenuDifficulty()
+    {
+        if (PlayerPrefs.GetString("Difficulty", "Normal") != "Hard")
+        {
+            overridePunchDamage = false;
+            return;
+        }
+
+        overridePunchDamage = true;
+        overridePunchDamageAmount = 5;
+        attackInterval *= hardAttackIntervalMultiplier;
+        moveSpeed *= hardMoveSpeedMultiplier;
+        rotationSpeedDegreesPerSecond *= hardRotationSpeedMultiplier;
     }
 
     void Update()

@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      concussionEdited_0: 1499021995239878607
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

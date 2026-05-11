@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BloodScreenEdited_0: 1444494420274249662
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

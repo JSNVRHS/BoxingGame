@@ -63,6 +63,7 @@ public class testHead : MonoBehaviour
         if (knockedDown) return;
 
         ResolveOwnerTorso();
+        ResolveOpponentRoot();
         TrackBrawlerEntry();
         StickToTorso();
         reactionAngleOffset = Mathf.LerpAngle(
@@ -224,6 +225,7 @@ public class testHead : MonoBehaviour
             knockedDown = true;
             Debug.Log($"{name}: knocked down from head damage.");
             VictoryPoseUtility.ShowVictoryPose(attackerRoot);
+            KOMessageUtility.ShowKOMessage();
 
             if (ringFlash != null)
                 ringFlash.StayHit();
@@ -423,6 +425,52 @@ public class testHead : MonoBehaviour
         {
             torso = ownerTorso.gameObject;
         }
+    }
+
+    void ResolveOpponentRoot()
+    {
+        if (opponentRoot != null && opponentRoot.gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
+        Torso candidate = FindActiveOpponentTorso();
+        if (candidate != null)
+        {
+            opponentRoot = candidate.transform.root;
+        }
+    }
+
+    Torso FindActiveOpponentTorso()
+    {
+        Torso[] torsos = FindObjectsByType<Torso>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        Torso fallback = null;
+
+        foreach (Torso candidate in torsos)
+        {
+            if (candidate == null || candidate == ownerTorso)
+            {
+                continue;
+            }
+
+            if (ownerRoot != null && (candidate.transform == ownerRoot || candidate.transform.IsChildOf(ownerRoot)))
+            {
+                continue;
+            }
+
+            bool expectedOpponentInput = ownerTorso == null || !ownerTorso.AllowPlayerInput;
+            if (candidate.AllowPlayerInput == expectedOpponentInput)
+            {
+                return candidate;
+            }
+
+            if (fallback == null)
+            {
+                fallback = candidate;
+            }
+        }
+
+        return fallback;
     }
 
     void TrackBrawlerEntry()
