@@ -88,6 +88,10 @@ public class CharacterInjurySystem : MonoBehaviour
             return;
         }
         appliedInjuryOrder.Add(injury);
+        if (isPlayer)
+        {
+            ManagementGameState.AddInjury();
+        }
 
         switch (injury)
         {

@@ -1,0 +1,715 @@
+fileFormatVersion: 2
+guid: b03093570db96bf45a66f10f09b30991
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7437131970773899402
+    second: gangsterText_0
+  - first:
+      213: -6365670806270601922
+    second: gangsterText_1
+  - first:
+      213: 7073838003672860989
+    second: gangsterText_2
+  - first:
+      213: -544502961114306535
+    second: gangsterText_3
+  - first:
+      213: -8934487427714988545
+    second: gangsterText_4
+  - first:
+      213: -9049458850410326381
+    second: gangsterText_5
+  - first:
+      213: -2023209570268465833
+    second: gangsterText_6
+  - first:
+      213: -3614798570420484546
+    second: gangsterText_7
+  - first:
+      213: 5320796320798750726
+    second: gangsterText_8
+  - first:
+      213: -1217417617667617853
+    second: gangsterText_9
+  - first:
+      213: -6413279436634468909
+    second: gangsterText_10
+  - first:
+      213: 1812470420093825372
+    second: gangsterText_11
+  - first:
+      213: -7470218787061893950
+    second: gangsterText_12
+  - first:
+      213: 6595734250870207320
+    second: gangsterText_13
+  - first:
+      213: 2364138859661035787
+    second: gangsterText_14
+  - first:
+      213: 6634918347029766573
+    second: gangsterText_15
+  - first:
+      213: -6189937735010473558
+    second: gangsterText_16
+  - first:
+      213: 1901686636547808788
+    second: gangsterText_17
+  - first:
+      213: -6980023052923428138
+    second: gangsterText_18
+  - first:
+      213: -6902547630510899770
+    second: gangsterText_19
+  - first:
+      213: 453146487174606773
+    second: gangsterText_20
+  - first:
+      213: -7857424595010321243
+    second: gangsterText_21
+  - first:
+      213: -167721845410042552
+    second: gangsterText_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: gangsterText_0
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 162
+        width: 369
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 677225e40eff9c890800000000000000
+      internalID: -7437131970773899402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_1
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 214
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e359a23e02898a7a0800000000000000
+      internalID: -6365670806270601922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_2
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 214
+        width: 46
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d39449f7f225b2260800000000000000
+      internalID: 7073838003672860989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_3
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 214
+        width: 20
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91822a711798178f0800000000000000
+      internalID: -544502961114306535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_4
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 214
+        width: 36
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff5cadc7503520480800000000000000
+      internalID: -8934487427714988545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_5
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 214
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39617c32f1dd96280800000000000000
+      internalID: -9049458850410326381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_6
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 214
+        width: 21
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7553af18d9d1ce3e0800000000000000
+      internalID: -2023209570268465833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_7
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 239
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e364f7b2ad7a5ddc0800000000000000
+      internalID: -3614798570420484546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_8
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 214
+        width: 12
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6083a6f101447d940800000000000000
+      internalID: 5320796320798750726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_9
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 206
+        width: 24
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cb8e9b702dda1fe0800000000000000
+      internalID: -1217417617667617853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_10
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 214
+        width: 43
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ddc516d4547ff6a0800000000000000
+      internalID: -6413279436634468909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_11
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 214
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5178938e30372910800000000000000
+      internalID: 1812470420093825372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_12
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 214
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c4f9b29793745890800000000000000
+      internalID: -7470218787061893950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_13
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 214
+        width: 23
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 853fefffa51c88b50800000000000000
+      internalID: 6595734250870207320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_14
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 161
+        width: 46
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b090bc164cb1fc020800000000000000
+      internalID: 2364138859661035787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_15
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 169
+        width: 23
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da16e645517f31c50800000000000000
+      internalID: 6634918347029766573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_16
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 169
+        width: 45
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa92aeafc6ce81aa0800000000000000
+      internalID: -6189937735010473558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_17
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 169
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41e1a8d9be5246a10800000000000000
+      internalID: 1901686636547808788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_18
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 161
+        width: 24
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d2267ed30af12f90800000000000000
+      internalID: -6980023052923428138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_19
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 169
+        width: 42
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cdfe2650893530a0800000000000000
+      internalID: -6902547630510899770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_20
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 169
+        width: 24
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bf22474456e94600800000000000000
+      internalID: 453146487174606773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_21
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 169
+        width: 24
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a40ef416f1d4f290800000000000000
+      internalID: -7857424595010321243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gangsterText_22
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 169
+        width: 49
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84de247ced12cadf0800000000000000
+      internalID: -167721845410042552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: b19e9015d57613a4a8e14d63267fb7d1
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      gangsterText_0: -7437131970773899402
+      gangsterText_1: -6365670806270601922
+      gangsterText_10: -6413279436634468909
+      gangsterText_11: 1812470420093825372
+      gangsterText_12: -7470218787061893950
+      gangsterText_13: 6595734250870207320
+      gangsterText_14: 2364138859661035787
+      gangsterText_15: 6634918347029766573
+      gangsterText_16: -6189937735010473558
+      gangsterText_17: 1901686636547808788
+      gangsterText_18: -6980023052923428138
+      gangsterText_19: -6902547630510899770
+      gangsterText_2: 7073838003672860989
+      gangsterText_20: 453146487174606773
+      gangsterText_21: -7857424595010321243
+      gangsterText_22: -167721845410042552
+      gangsterText_3: -544502961114306535
+      gangsterText_4: -8934487427714988545
+      gangsterText_5: -9049458850410326381
+      gangsterText_6: -2023209570268465833
+      gangsterText_7: -3614798570420484546
+      gangsterText_8: 5320796320798750726
+      gangsterText_9: -1217417617667617853
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

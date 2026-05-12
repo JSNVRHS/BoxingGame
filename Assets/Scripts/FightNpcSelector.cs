@@ -26,12 +26,18 @@ public class FightNpcSelector : MonoBehaviour
             return;
         }
 
-        if (FindFirstObjectByType<FightNpcSelector>() != null)
+        Camera mainCamera = Camera.main;
+        if (mainCamera == null)
         {
             return;
         }
 
-        new GameObject("FightNpcSelector").AddComponent<FightNpcSelector>();
+        if (mainCamera.GetComponent<FightNpcSelector>() != null)
+        {
+            return;
+        }
+
+        mainCamera.gameObject.AddComponent<FightNpcSelector>();
     }
 
     void Awake()
@@ -45,9 +51,25 @@ public class FightNpcSelector : MonoBehaviour
             return;
         }
 
-        bool useFirstNpc = Random.value < 0.5f;
+        string selectedNpc = ManagementGameState.SelectedNpcName;
+        if (string.IsNullOrEmpty(selectedNpc))
+        {
+            if (Random.value < 0.5f)
+            {
+                selectedNpc = secondNpcName;
+            }
+            else
+            {
+                selectedNpc = firstNpcName;
+            }
+            ManagementGameState.SelectedNpcName = selectedNpc;
+            PlayerPrefs.Save();
+        }
+
+        bool useFirstNpc = selectedNpc == firstNpcName;
         firstNpc.SetActive(useFirstNpc);
         secondNpc.SetActive(!useFirstNpc);
+        Debug.Log("selected npc: " + selectedNpc);
     }
 
     GameObject FindNamedSceneObject(string objectName)

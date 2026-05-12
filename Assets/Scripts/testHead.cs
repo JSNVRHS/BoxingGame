@@ -225,7 +225,7 @@ public class testHead : MonoBehaviour
             knockedDown = true;
             Debug.Log($"{name}: knocked down from head damage.");
             VictoryPoseUtility.ShowVictoryPose(attackerRoot);
-            KOMessageUtility.ShowKOMessage();
+            KOMessageUtility.ShowKOMessage(attackerRoot, ownerRoot);
 
             if (ringFlash != null)
                 ringFlash.StayHit();

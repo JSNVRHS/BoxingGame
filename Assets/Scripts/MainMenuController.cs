@@ -7,7 +7,7 @@ public class MainMenuController : MonoBehaviour
     const string NormalDifficulty = "Normal";
     const string HardDifficulty = "Hard";
 
-    [SerializeField] string fightSceneName = "fight scene";
+    [SerializeField] string managementSceneName = "management scene";
     [SerializeField] string backgroundObjectName = "background";
     [SerializeField] string startButtonName = "Start";
     [SerializeField] string exitButtonName = "Exit";
@@ -46,12 +46,18 @@ public class MainMenuController : MonoBehaviour
             return;
         }
 
-        if (FindFirstObjectByType<MainMenuController>() != null)
+        Camera mainCamera = Camera.main;
+        if (mainCamera == null)
         {
             return;
         }
 
-        new GameObject("MainMenuController").AddComponent<MainMenuController>();
+        if (mainCamera.GetComponent<MainMenuController>() != null)
+        {
+            return;
+        }
+
+        mainCamera.gameObject.AddComponent<MainMenuController>();
     }
 
     static bool IsMainMenuScene(Scene scene)
@@ -95,13 +101,13 @@ public class MainMenuController : MonoBehaviour
 
         if (WasClicked(normalButton))
         {
-            StartFight(NormalDifficulty);
+            StartGame(NormalDifficulty);
             return;
         }
 
         if (WasClicked(hardButton))
         {
-            StartFight(HardDifficulty);
+            StartGame(HardDifficulty);
             return;
         }
 
@@ -111,11 +117,12 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    void StartFight(string difficulty)
+    void StartGame(string difficulty)
     {
         PlayerPrefs.SetString(DifficultyKey, difficulty);
+        ManagementGameState.ResetRun();
         PlayerPrefs.Save();
-        SceneManager.LoadScene(fightSceneName);
+        SceneManager.LoadScene(managementSceneName);
     }
 
     void ExitGame()
