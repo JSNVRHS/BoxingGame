@@ -13,7 +13,7 @@ public class CharacterInjurySystem : MonoBehaviour
 
     [SerializeField] float bodyType1SpeedMultiplier = 0.6f;
     [SerializeField] float bodyType2RotationMultiplier = 0.6f;
-    [Header("Player Injury UI")]
+    
     [SerializeField] Texture2D browCutOverlayTexture;
     [SerializeField] Vector2 iconSize = new Vector2(42f, 42f);
     [SerializeField] float iconSpacing = 6f;
@@ -73,7 +73,7 @@ public class CharacterInjurySystem : MonoBehaviour
     {
         if (available.Count == 0)
         {
-            Debug.Log($"{name}: no unique {regionName} injuries left to apply.");
+            Debug.Log($"{name} no unique {regionName} injuries left");
             return;
         }
 
@@ -88,6 +88,10 @@ public class CharacterInjurySystem : MonoBehaviour
             return;
         }
         appliedInjuryOrder.Add(injury);
+        if (isPlayer)
+        {
+            ManagementGameState.AddInjury();
+        }
 
         switch (injury)
         {
@@ -105,7 +109,7 @@ public class CharacterInjurySystem : MonoBehaviour
                 break;
         }
 
-        Debug.Log($"{name}: injury applied -> {injury}.");
+        Debug.Log($"{name} injured {injury}");
     }
 
     void ApplyBrowCut()

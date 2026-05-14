@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraZoomLock : MonoBehaviour
 {
@@ -8,13 +9,35 @@ public class CameraZoomLock : MonoBehaviour
     Camera targetCamera;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    static void AddToMainCamera()
+    static void Initialize()
     {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        AddToMainCamera(SceneManager.GetActiveScene());
+    }
+
+    static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        AddToMainCamera(scene);
+    }
+
+    static void AddToMainCamera(Scene scene)
+    {
+        if (!ShouldLockZoom(scene))
+        {
+            return;
+        }
+
         Camera mainCamera = Camera.main;
         if (mainCamera != null && mainCamera.GetComponent<CameraZoomLock>() == null)
         {
             mainCamera.gameObject.AddComponent<CameraZoomLock>();
         }
+    }
+
+    static bool ShouldLockZoom(Scene scene)
+    {
+        return scene.name.ToLowerInvariant().Contains("fight");
     }
 
     void Awake()

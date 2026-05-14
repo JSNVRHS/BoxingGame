@@ -80,17 +80,27 @@ public static class ImpactDamageUtility
         Transform attackerRoot
     )
     {
-        Torso attackerTorso = attackerRoot != null ? attackerRoot.GetComponentInChildren<Torso>(true) : null;
+        Torso attackerTorso = null;
+        if (attackerRoot != null)
+        {
+            attackerTorso = attackerRoot.GetComponentInChildren<Torso>(true);
+        }
 
         ImpactBreakdown breakdown = new ImpactBreakdown
         {
-            reachedPeakRotation = attackerTorso != null
-                ? attackerTorso.HasReachedRotationCapThisPunch()
-                : reachedPeakRotation,
             defenderAttacking = defenderTorso != null && defenderTorso.IsPunchingActive(),
             defenderWalkingToward = IsWalkingToward(defenderRoot, attackerRoot),
             attackerWalkingToward = IsWalkingToward(attackerRoot, defenderRoot)
         };
+
+        if (attackerTorso != null)
+        {
+            breakdown.reachedPeakRotation = attackerTorso.HasReachedRotationCapThisPunch();
+        }
+        else
+        {
+            breakdown.reachedPeakRotation = reachedPeakRotation;
+        }
 
         if (breakdown.reachedPeakRotation)
         {
@@ -112,9 +122,20 @@ public static class ImpactDamageUtility
             breakdown.score += 1;
         }
 
-        breakdown.damage = breakdown.score >= 4 ? 5 : breakdown.score;
+        if (breakdown.score >= 4)
+        {
+            breakdown.damage = 5;
+        }
+        else
+        {
+            breakdown.damage = breakdown.score;
+        }
 
-        SimpleOSNpcAI npcAi = attackerRoot != null ? attackerRoot.GetComponentInChildren<SimpleOSNpcAI>(true) : null;
+        SimpleOSNpcAI npcAi = null;
+        if (attackerRoot != null)
+        {
+            npcAi = attackerRoot.GetComponentInChildren<SimpleOSNpcAI>(true);
+        }
         if (npcAi != null && npcAi.TryGetOverridePunchDamage(out int overrideDamage))
         {
             breakdown.debugDamageOverride = true;
@@ -127,12 +148,42 @@ public static class ImpactDamageUtility
 
     public static string FormatReasons(ImpactBreakdown breakdown)
     {
+        int peakRotation = 0;
+        if (breakdown.reachedPeakRotation)
+        {
+            peakRotation = 1;
+        }
+
+        int defenderAttacking = 0;
+        if (breakdown.defenderAttacking)
+        {
+            defenderAttacking = 1;
+        }
+
+        int defenderWalkingToward = 0;
+        if (breakdown.defenderWalkingToward)
+        {
+            defenderWalkingToward = 1;
+        }
+
+        int attackerWalkingToward = 0;
+        if (breakdown.attackerWalkingToward)
+        {
+            attackerWalkingToward = 1;
+        }
+
+        int debugDamageOverride = 0;
+        if (breakdown.debugDamageOverride)
+        {
+            debugDamageOverride = 1;
+        }
+
         return
-            $"peakRotation={(breakdown.reachedPeakRotation ? 1 : 0)}, " +
-            $"defenderAttacking={(breakdown.defenderAttacking ? 1 : 0)}, " +
-            $"defenderWalkingToward={(breakdown.defenderWalkingToward ? 1 : 0)}, " +
-            $"attackerWalkingToward={(breakdown.attackerWalkingToward ? 1 : 0)}, " +
-            $"debugDamageOverride={(breakdown.debugDamageOverride ? 1 : 0)}";
+            $"peakRotation={peakRotation}, " +
+            $"defenderAttacking={defenderAttacking}, " +
+            $"defenderWalkingToward={defenderWalkingToward}, " +
+            $"attackerWalkingToward={attackerWalkingToward}, " +
+            $"debugDamageOverride={debugDamageOverride}";
     }
 
     static bool IsWalkingToward(Transform defenderRoot, Transform attackerRoot)

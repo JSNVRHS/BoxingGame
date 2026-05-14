@@ -37,6 +37,10 @@ public class NPCHead : MonoBehaviour
         }
     }
 
+
+
+
+
     public void stickToTorso()
     {
         head.transform.position = torso.transform.position;
@@ -62,6 +66,12 @@ public class NPCHead : MonoBehaviour
             }
         }
     }
+
+
+
+
+
+
 
     void RegisterHit(bool isRightHand)
     {
@@ -96,6 +106,11 @@ public class NPCHead : MonoBehaviour
             Instantiate(bloodPrefab, chinTransform.position, chinTransform.rotation);
         }
     }
+
+
+
+
+
 
     void OnDrawGizmosSelected()
     {

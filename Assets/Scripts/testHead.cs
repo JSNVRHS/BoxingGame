@@ -7,21 +7,17 @@ public class testHead : MonoBehaviour
     public Camera cam;
     Torso ownerTorso;
 
-    [Header("Mode")]
     [SerializeField] bool aimAtMouse = false;
     [SerializeField] float aimAngleOffset = 0f;
 
-    [Header("Ownership")]
     [SerializeField] Transform ownerRoot;
     [SerializeField] Transform opponentRoot;
 
-    [Header("Effects / Knockdown")]
     [SerializeField] GameObject bloodPrefab;
     [SerializeField] Transform chinTransform;
     [SerializeField] RingFlash ringFlash;
     [SerializeField] NPCKnockdown knockdown;
 
-    [Header("Hit Reaction")]
     [SerializeField] float baseAngleOffset = 40f;
     [SerializeField] float hitRotationAmount = 30f;
     [SerializeField] float returnSpeed = 2f;
@@ -63,6 +59,7 @@ public class testHead : MonoBehaviour
         if (knockedDown) return;
 
         ResolveOwnerTorso();
+        ResolveOpponentRoot();
         TrackBrawlerEntry();
         StickToTorso();
         reactionAngleOffset = Mathf.LerpAngle(
@@ -152,13 +149,13 @@ public class testHead : MonoBehaviour
 
                 if (ShouldSlipOutfighterPunch() && !hit.GetComponent<BrawlerRightHand>() && !hit.GetComponent<BrawlerLeftHand>())
                 {
-                    Debug.Log($"{name}: OS punch slipped during fresh BS window.");
+                    Debug.Log($"{name} miss");
                     return;
                 }
 
                 if (IsBlockedByIdleHand(hit))
                 {
-                    Debug.Log($"{name}: head punch negated by idle guard hand.");
+                    Debug.Log($"{name} block");
                     return;
                 }
 
@@ -185,12 +182,12 @@ public class testHead : MonoBehaviour
 
         if (damage <= 0)
         {
-            Debug.Log($"{name}: head contact caused 0 damage. Reasons: {reasons}.");
+            Debug.Log($"{name} 0 damage Reasons: {reasons}.");
             return;
         }
 
         currentHeadHp = Mathf.Max(0, currentHeadHp - damage);
-        Debug.Log($"{name}: hit on head for {damage} damage. Head HP = {currentHeadHp}/{maxHeadHp}. Reasons: {reasons}.");
+        Debug.Log($"{name} hit on head for {damage} dmg. Head HP = {currentHeadHp}/{maxHeadHp} Reasons: {reasons}");
         UpdateBruisedFaceVisual();
 
         if (isRightHand)
@@ -208,7 +205,7 @@ public class testHead : MonoBehaviour
 
         if (damage >= 3)
         {
-            Debug.Log($"{name}: head injury.");
+            Debug.Log($"{name} head injury");
 
             CharacterInjurySystem injurySystem = ownerRoot != null
                 ? ownerRoot.GetComponentInChildren<CharacterInjurySystem>(true)
@@ -222,8 +219,9 @@ public class testHead : MonoBehaviour
         if (currentHeadHp <= 0)
         {
             knockedDown = true;
-            Debug.Log($"{name}: knocked down from head damage.");
+            Debug.Log($"{name} kod from head dmg");
             VictoryPoseUtility.ShowVictoryPose(attackerRoot);
+            KOMessageUtility.ShowKOMessage(attackerRoot, ownerRoot);
 
             if (ringFlash != null)
                 ringFlash.StayHit();
@@ -423,6 +421,52 @@ public class testHead : MonoBehaviour
         {
             torso = ownerTorso.gameObject;
         }
+    }
+
+    void ResolveOpponentRoot()
+    {
+        if (opponentRoot != null && opponentRoot.gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
+        Torso candidate = FindActiveOpponentTorso();
+        if (candidate != null)
+        {
+            opponentRoot = candidate.transform.root;
+        }
+    }
+
+    Torso FindActiveOpponentTorso()
+    {
+        Torso[] torsos = FindObjectsByType<Torso>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        Torso fallback = null;
+
+        foreach (Torso candidate in torsos)
+        {
+            if (candidate == null || candidate == ownerTorso)
+            {
+                continue;
+            }
+
+            if (ownerRoot != null && (candidate.transform == ownerRoot || candidate.transform.IsChildOf(ownerRoot)))
+            {
+                continue;
+            }
+
+            bool expectedOpponentInput = ownerTorso == null || !ownerTorso.AllowPlayerInput;
+            if (candidate.AllowPlayerInput == expectedOpponentInput)
+            {
+                return candidate;
+            }
+
+            if (fallback == null)
+            {
+                fallback = candidate;
+            }
+        }
+
+        return fallback;
     }
 
     void TrackBrawlerEntry()
