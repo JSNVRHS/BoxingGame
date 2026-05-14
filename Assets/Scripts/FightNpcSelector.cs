@@ -47,7 +47,7 @@ public class FightNpcSelector : MonoBehaviour
 
         if (firstNpc == null || secondNpc == null)
         {
-            Debug.LogWarning("FightNpcSelector could not find both NPCJason and NPCBob.");
+            Debug.LogWarning("no NPCJason and NPCBob");
             return;
         }
 
@@ -69,7 +69,7 @@ public class FightNpcSelector : MonoBehaviour
         bool useFirstNpc = selectedNpc == firstNpcName;
         firstNpc.SetActive(useFirstNpc);
         secondNpc.SetActive(!useFirstNpc);
-        Debug.Log("selected npc: " + selectedNpc);
+        Debug.Log("npc: " + selectedNpc);
     }
 
     GameObject FindNamedSceneObject(string objectName)

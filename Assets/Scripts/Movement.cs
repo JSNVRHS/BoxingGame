@@ -17,7 +17,6 @@ public class Movement : MonoBehaviour
     public float z;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -72,12 +71,9 @@ public class Movement : MonoBehaviour
         }
 
        
-        // setting up the rotation of the legs and their direction for moving
         Vector2 direction = new Vector2(x, y).normalized;;
         Quaternion turn = Quaternion.Euler(0, 0, z);
-        // set property true/false for animation change
         anim.SetBool("walking", isMoving);
-        // applying new rotation and direction
         Vector2 velocity = direction * speed * speedMultiplier;
         body.linearVelocity = velocity;
         body.transform.rotation = Quaternion.Slerp(body.transform.rotation, turn, 1);

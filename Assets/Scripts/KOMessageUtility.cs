@@ -35,7 +35,7 @@ public static class KOMessageUtility
             return false;
         }
 
-        Debug.LogWarning("ko message: could not identify winner, assuming loss");
+        Debug.LogWarning("could not identify winner");
         return false;
     }
 

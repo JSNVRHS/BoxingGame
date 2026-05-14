@@ -47,6 +47,15 @@ public class GameOverMenuController : MonoBehaviour
         mainCamera.gameObject.AddComponent<GameOverMenuController>();
     }
 
+
+
+
+
+
+
+
+
+
     void Start()
     {
         menuCamera = Camera.main;
@@ -100,6 +109,15 @@ public class GameOverMenuController : MonoBehaviour
             textMesh.text = value;
         }
     }
+
+
+
+
+
+
+
+
+
 
     bool WasClicked(GameObject target)
     {

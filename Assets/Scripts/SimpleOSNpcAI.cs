@@ -344,7 +344,7 @@ public class SimpleOSNpcAI : MonoBehaviour
 
         anim.SetTrigger("punch");
         StartCoroutine(PunchRoutine(handBehaviour, isRightHand));
-        // Debug.Log($"{name}: NPC threw {(isRightHand ? "right" : "left")} OS straight.");
+        // Debug.Log($"{name} threw {(isRightHand ? "right" : "left")} OS");
         return true;
     }
 
@@ -626,37 +626,37 @@ public class SimpleOSNpcAI : MonoBehaviour
     {
         if (torso == null)
         {
-            Debug.LogWarning($"{name}: SimpleOSNpcAI could not find Torso.");
+            Debug.LogWarning($"{name} AI cant find Torso");
         }
 
         if (leftHand == null)
         {
-            Debug.LogWarning($"{name}: SimpleOSNpcAI could not find OS left hand.");
+            Debug.LogWarning($"{name} AI cant find OS left hand");
         }
 
         if (rightHand == null)
         {
-            Debug.LogWarning($"{name}: SimpleOSNpcAI could not find OS right hand.");
+            Debug.LogWarning($"{name} AI cant find OS right hand");
         }
 
         if (brawlerLeftHand == null)
         {
-            Debug.LogWarning($"{name}: SimpleOSNpcAI could not find BS left hand.");
+            Debug.LogWarning($"{name} AI  cant find BS left hand");
         }
 
         if (brawlerRightHand == null)
         {
-            Debug.LogWarning($"{name}: SimpleOSNpcAI could not find BS right hand.");
+            Debug.LogWarning($"{name} AI cant find BS right hand");
         }
 
         if (movementBody == null)
         {
-            Debug.LogWarning($"{name}: SimpleOSNpcAI could not find a Rigidbody2D for NPC movement.");
+            Debug.LogWarning($"{name} AI cant find Rigidbody2D movement");
         }
 
         if (targetHead == null)
         {
-            Debug.LogWarning($"{name}: SimpleOSNpcAI could not find the player head target.");
+            Debug.LogWarning($"{name} AI cant find the player head target");
         }
 
     }

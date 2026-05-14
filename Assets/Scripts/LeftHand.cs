@@ -14,11 +14,45 @@ public class LeftHand : MonoBehaviour
     [SerializeField] float guardLocalAngle = 1f;
     [SerializeField] float peakRotationThreshold = 20f;
 
-    public bool IsPunching => punching;
-    public bool IsBodyPunch => false;
-    public bool IsHeadPunch => punching;
-    public Torso OwnerTorso => ownerTorso;
-    public bool HasReachedPeakRotationThisPunch => reachedPeakRotationThisPunch;
+    public bool IsPunching
+    {
+        get
+        {
+            return punching;
+        }
+    }
+
+    public bool IsBodyPunch
+    {
+        get
+        {
+            return false;
+        }
+    }
+
+    public bool IsHeadPunch
+    {
+        get
+        {
+            return punching;
+        }
+    }
+
+    public Torso OwnerTorso
+    {
+        get
+        {
+            return ownerTorso;
+        }
+    }
+
+    public bool HasReachedPeakRotationThisPunch
+    {
+        get
+        {
+            return reachedPeakRotationThisPunch;
+        }
+    }
 
     void Start()
     {

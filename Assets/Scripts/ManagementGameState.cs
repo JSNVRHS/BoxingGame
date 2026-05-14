@@ -166,7 +166,7 @@ public static class ManagementGameState
             SelectedNpcName = "NPCJason";
         }
         PlayerPrefs.Save();
-        Debug.Log("fight prepared: " + SelectedNpcName + ", gangster=" + gangsterFight);
+        Debug.Log("fight " + SelectedNpcName + " gangster=" + gangsterFight);
     }
 
     public static void CompleteFight(bool playerWon)

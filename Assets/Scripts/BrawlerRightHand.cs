@@ -10,11 +10,45 @@ public class BrawlerRightHand : MonoBehaviour
     bool reachedPeakRotationThisPunch = false;
     [SerializeField] float peakRotationThreshold = 20f;
 
-    public bool IsPunching => punching;
-    public bool IsBodyPunch => punching;
-    public bool IsHeadPunch => false;
-    public Torso OwnerTorso => ownerTorso;
-    public bool HasReachedPeakRotationThisPunch => reachedPeakRotationThisPunch;
+    public bool IsPunching
+    {
+        get
+        {
+            return punching;
+        }
+    }
+
+    public bool IsBodyPunch
+    {
+        get
+        {
+            return punching;
+        }
+    }
+
+    public bool IsHeadPunch
+    {
+        get
+        {
+            return false;
+        }
+    }
+
+    public Torso OwnerTorso
+    {
+        get
+        {
+            return ownerTorso;
+        }
+    }
+
+    public bool HasReachedPeakRotationThisPunch
+    {
+        get
+        {
+            return reachedPeakRotationThisPunch;
+        }
+    }
 
     void Start()
     {
