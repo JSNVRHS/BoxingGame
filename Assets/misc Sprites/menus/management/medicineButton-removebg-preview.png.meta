@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      medicineButton-removebg-preview_0: 5807027064905188318
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

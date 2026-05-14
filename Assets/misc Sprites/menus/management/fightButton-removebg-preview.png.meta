@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      fightButton-removebg-preview_0: 8174760389481111209
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

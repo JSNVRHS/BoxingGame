@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sleepButton_0: 237519124864060261
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

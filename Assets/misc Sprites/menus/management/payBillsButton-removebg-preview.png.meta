@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      payBillsButton-removebg-preview_0: 3547699929092224860
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

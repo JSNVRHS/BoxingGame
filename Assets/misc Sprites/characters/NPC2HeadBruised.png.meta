@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      NPC2HeadBruised_0: -5003493072498372650
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

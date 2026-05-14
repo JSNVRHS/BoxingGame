@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      moneyIcon-removebg-preview_0: 6871690004686693093
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

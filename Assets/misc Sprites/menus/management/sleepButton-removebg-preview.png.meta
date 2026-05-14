@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sleepButton-removebg-preview_0: 3297917786981011523
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
